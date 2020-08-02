@@ -9,7 +9,7 @@
 
 CryptoCRIT is an open-source Cryptocurrency project for making automated payments, The associated Cryptocurrency is called CritCoin
 
-This System Is Currently Used In <a href="https://www.fcrit.ac.in">Fr. conceicao Rodrigues Institute of Technology</a>
+This System Is Currently Used In <a href="https://www.fcrit.ac.in">Fr. Conceicao Rodrigues Institute of Technology</a>
 
 <table>
 <caption>CryptoCRIT</caption>
@@ -21,7 +21,7 @@ This System Is Currently Used In <a href="https://www.fcrit.ac.in">Fr. conceicao
 <tbody>
 <tr><th scope='row'>Name</th><td>CryptoCRIT</td></tr>
 <tr><th scope='row'>Technologies Used</th><td><ul><li>Blockchain</li><li>RSA Encryption</li></ul></td></tr>
-<tr><th scope='row'>College</th><td><a href="https://www.fcrit.ac.in">Fr. conceicao Rodrigues Institute of Technology</a></td></tr>
+<tr><th scope='row'>College</th><td><a href="https://www.fcrit.ac.in">Fr. Conceicao Rodrigues Institute of Technology</a></td></tr>
 <tr><th scope='row'>Team</th>
 <td>
 <ul>
