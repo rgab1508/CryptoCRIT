@@ -7,9 +7,9 @@
 
 ## What Is CryptoCRIT
 
-CryptoCRIT is an open-source Cryptocurrency project for making automated payments, The associated Cryptocurrency is called CritCoin
+CryptoCRIT is an open-source Cryptocurrency project which facilitates a Cryptocurrency wallet for making payments. The associated Cryptocurrency is called CritCoin.
 
-This System Is Currently Used In <a href="https://www.fcrit.ac.in">Fr. Conceicao Rodrigues Institute of Technology</a>
+This system will be used in <a href="https://www.fcrit.ac.in">Fr. Conceicao Rodrigues Institute of Technology</a>
 
 <table>
 <caption>CryptoCRIT</caption>
