@@ -42,3 +42,13 @@ This system will be used in <a href="https://www.fcrit.ac.in">Fr. Conceicao Rodr
 - [ ] Logic
 - [ ] Working
 - [ ] Production
+
+## Getting Started
+
+### Installation
+
+To use CryptoCRIT in your project, run:
+
+```
+npm i cryptocrit
+```
