@@ -1,6 +1,6 @@
 {
-  "name": "server",
-  "version": "1.0.0",
+  "name": "cryptocrit",
+  "version": "1.0.1",
   "description": "An open-source Cryptocurrency Project",
   "main": "server.js",
   "scripts": {
