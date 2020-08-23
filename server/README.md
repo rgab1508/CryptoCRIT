@@ -85,7 +85,7 @@ All the configuration data should be present in a `config.json` file
 
 ## Contact
 
-Contact us on ![Gitter](https://gitter.im/CryptoCRIT/community)
+Contact us on [Gitter](https://gitter.im/CryptoCRIT/community)
 
 ## License
 
