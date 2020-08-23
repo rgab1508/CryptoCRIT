@@ -1,15 +1,12 @@
 # CryptoCRIT
 
-<p align='center'><img src="https://theabbie.github.io/files/CryptoCRIT.png" alt="CryptoCRIT"></p>
+![CryptoCRIT](https://theabbie.github.io/files/CryptoCRIT.png)
 
-* [What Is CryptoCRIT](#what-is-cryptocrit)
-* [Tasks](#tasks)
-
-## What Is CryptoCRIT
+## Introduction
 
 CryptoCRIT is an open-source Cryptocurrency project which facilitates a Cryptocurrency wallet for making payments. The associated Cryptocurrency is called CritCoin.
 
-This system will be used in <a href="https://www.fcrit.ac.in">Fr. Conceicao Rodrigues Institute of Technology</a>
+This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](https://www.fcrit.ac.in)
 
 <table>
 <caption>CryptoCRIT</caption>
@@ -43,12 +40,53 @@ This system will be used in <a href="https://www.fcrit.ac.in">Fr. Conceicao Rodr
 - [ ] Working
 - [ ] Production
 
-## Getting Started
+## Usage
+
+```sh
+mkdir <project-name>
+cd <project-name>
+cryptocrit run
+```
+
+## Contributing
+
+Thank you for your interest in contributing, We are currently not interested in Contribution as this is our college project, If you have any suggestions or ideas, you can contact any of us, details are as mentioned below
+
+## Help
+
+You can contact us on social media, Our preferred mediums are as mentioned below
+
+## Installation
+
+### Requirements
+
+* Node.Js installed
+* A server or localhost
 
 ### Installation
 
-To use CryptoCRIT in your project, run:
+A sample installation would be something like this
 
+```sh
+npm install -g cryptocrit
+cryptocrit init
 ```
-npm i cryptocrit
-```
+
+### Configuration
+
+All the configuration data should be present in a `config.json` file
+
+## Credits
+
+* [Gabriel Rajendran](https://github.com/rgab1508)
+* [Aditya Unnikrishnan](https://instagram.com/adi.unni)
+* [Abhishek Chaudhary](https://theabbie.github.io)
+* [Tushar Gupta](https://instagram.com/tushar_gupta_339)
+
+## Contact
+
+Contact us on ![Gitter](https://gitter.im/CryptoCRIT/community)
+
+## License
+
+This project is licensed under MIT License, See [LICENSE](/LICENSE) for more information
