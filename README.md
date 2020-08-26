@@ -2,6 +2,8 @@
 
 ![CryptoCRIT](https://theabbie.github.io/files/CryptoCRIT.png)
 
+<a href="https://www.producthunt.com/posts/cryptocrit?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptocrit" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=244180&theme=dark" alt="CryptoCRIT - An open-source Cryptocurrency project | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+
 ## Introduction
 
 CryptoCRIT is an open-source Cryptocurrency project which facilitates a Cryptocurrency wallet for making payments. The associated Cryptocurrency is called CritCoin.
