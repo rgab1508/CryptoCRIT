@@ -46,8 +46,8 @@ class Blockchain{
 }
 
 let critCoin = new Blockchain()
-critCoin.addBlock(new Block(1,"18/12/2020",{"amount":4},0,0))
-critCoin.addBlock(new Block(2,"18/12/2020",{"amount":10},0,0))
+critCoin.addBlock(new Block(1,"18/12/2020",{"amount":4},0,0,0))
+critCoin.addBlock(new Block(2,"18/12/2020",{"amount":10},0,0,0))
 
 console.log("Is chain valid? "+ critCoin.isChainValid())
 
