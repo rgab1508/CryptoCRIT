@@ -24,6 +24,8 @@ class Block {
     }
 }
 
+module.exports = Block
+
 let block1 = new Block(0,"19/12/2020",{"amount":10},"genesis_hash",0,0)
 
-console.log(JSON.stringify(block1,null,4))
+//console.log(JSON.stringify(block1,null,4))
