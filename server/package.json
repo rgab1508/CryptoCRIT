@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/rgab1508/CryptoCRIT#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "elliptic": "^6.5.3",
     "express": "^4.17.1",
