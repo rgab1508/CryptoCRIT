@@ -1,12 +1,16 @@
+require('dotenv').config({path: './.env'});
+
 var express = require("express");
 var cors = require('cors');
+var bodyParser = require('body-parser')
+
 var Student = require("./database/rollno");
-var User = require("./database/users");
 var OTP = require("./auth/OTP");
 
 var app = express();
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true})); 
 
 class Exception {
   constructor(code,message) {
@@ -28,7 +32,8 @@ app.post('/login', async function(req,res) {
     });
   }
   catch (e) {
-    res.status(e.code).end(e.message);
+    res.json(e);
+    //res.status(e.code).end(e.message);
   }
 });
 
@@ -36,7 +41,7 @@ app.post('/verify', async function(req,res) {
   try {
     if (!req.body.token) throw new Exception(400,"parameter missing: token");  // token missing
     if (!req.body.otp) throw new Exception(400,"parameter missing: otp");  // OTP missing
-    var verified = await OTP.verify(token,otp);
+    var verified = await OTP.verify(req.body.token,req.body.otp);
     if (verified) {
       var newUser = await Student.isNew(verified.rollno);
       // TODO continue from here
@@ -53,3 +58,5 @@ app.post('/verify', async function(req,res) {
 app.get('/blockchain', async function(req,res) {
 
 });
+
+app.listen(process.env.PORT || 8080);

@@ -1,11 +1,9 @@
-// TODO create interface for databae operations
-
 require('dotenv').config({path: './../.env'});
 const admin = require('firebase-admin');
 
 admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(process.env.db)),
-    databaseURL: process.env.db_url
+  credential: admin.credential.cert(JSON.parse(process.env.db)),
+  databaseURL: process.env.db_url
 });
 
 class DB {
@@ -31,6 +29,12 @@ class DB {
 	else resolve();
       });
     });
+  }
+
+  async remove(key) {
+    var ref = this.db.ref(this.path+'/'+key);
+    await ref.remove();
+    return true;
   }
 }
 

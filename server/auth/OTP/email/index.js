@@ -21,6 +21,26 @@ class Email {
   }
 
   async send() {
-    // TODO write email sending logic
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: this.email,
+        pass: this.password
+      }
+    });
+    const mailOptions = {
+      from: process.env.email,
+      to: this.to,
+      subject: this.subject,
+      html: this.body
+    };
+    return new Promise((resolve,reject)=>{
+      transporter.sendMail(mailOptions, function (err, info) {
+        if(err) reject(err);
+        else resolve(info);
+      });
+    });
   }
 }
+
+module.exports = Email;
