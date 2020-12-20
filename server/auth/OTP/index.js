@@ -1,10 +1,11 @@
 // module to handle OTP logic
 
+require('dotenv').config({path: './../../.env'});
 var crypto = require('crypto');
 
 var Email = require("./email");
 var Student = require("./../../database/rollno");
-var OTPbase = require("./../../database/otp");
+var Session = require("./../../database/session");
 
 class Exception {
   constructor(code,message) {
@@ -18,17 +19,15 @@ class OTP {
     this.rollno = rollno;
   }
 
-  async getOTP() {
+  getOTP() {
     var digits = '0123456789'; 
-    let otp = ''; 
-    for (let i = 0; i < 4; i++ ) otp += digits[Math.floor(Math.random() * 10)];
-    var token = crypto.randomBytes(8).toString('hex');
-    OTPbase.setToken(token,this.rollno,otp);
-    return otp;
+    let code = ''; 
+    for (let i = 0; i < 4; i++ ) code += digits[Math.floor(Math.random() * 10)];
+    return code;
   }
 
   async verify(token,otp) {
-    var session = await OTPbase.getToken(token);
+    var session = await Session.get(token); // TODO Need to work here
     if (session.otp != otp) return false;
     if (Date.now() - session.timestamp > 600000) throw new Exception(401, "OTP Expired");
     await OTPbase.revoke(token);
@@ -39,12 +38,18 @@ class OTP {
 
   async send() {
     var email_id = await Student.getEmailFromRollNumber(this.rollno);
-    var code = await this.getOTP();
-    var email = new Email();
+    var code = this.getOTP();
+    var token = crypto.randomBytes(8).toString('hex');
+    var session = new Session(token);
+    session.set("rollno",this.rollno);
+    session.set("otp",code);
+    await session.create();
+    var email = new Email(process.env.email,process.env.password);
     email.sendTo(email_id);
     email.setSubject("OTP verification for CryptoCRIT");
-    email.setBody("Your OTP is" + code);
-    email.send();
+    email.setBody("Your OTP is " + code);
+    await email.send();
+    return token;
   }
 }
 

@@ -1,17 +1,38 @@
-var firebase = require("firebase-admin");
+require('dotenv').config({path: './../../.env'});
+var DB = require("./../index.js");
+
+var root = "cryptocrit/students";
 
 class Student {
   constructor() {}
 
   static async getEmailFromRollNumber(rollno) {
-    // TODO write logic to fetch student email from database
+    var db = new DB(root);
+    var student = await db.read(rollno);
+    return student.email;
+  }
+
+  static async setKeyPair(rollno, keyPair) {
+    var db = new DB(root);
+    await db.write(rollno + "/public_key", keyPair.getPublic());
+    await db.write(rollno + "/private_key", keyPair.getPrivate());
+    return true;
   }
 
   static async exists(rollno) {
-  	// TODO write logic to check if student exists in the system
+    var db = new DB(root);
+    var student = await db.read(rollno);
+    return student?true:false;
   }
 
   static async isNew(rollno) {
-  	// TODO write logic to check if user already exists or not
+    var db = new DB(root);
+    var student = await db.read(rollno);
+    if (student.public_key) return true;
+    else return false;
   }
 }
+
+Student.exists("1019110").then(console.log)
+
+module.exports = Student;

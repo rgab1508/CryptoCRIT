@@ -25,7 +25,7 @@ class keypair {
 class keygen {
   constructor() {}
 
-  generate_keypair() {
+  static generateKeyPair() {
     const key = ec.genKeyPair();
     var public_key = key.getPublic('hex');  // hex encoded public key
     var private_key = key.getPrivate('hex');  // hex encoded private key
