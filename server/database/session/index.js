@@ -3,6 +3,13 @@ var DB = require("./../index.js");
 
 // TODO create interface to manage sessions
 
+class Exception {
+  constructor(code,message) {
+    this.code = code;
+    this.message = message;
+  } 
+}
+
 var root = "cryptocrit/session";
 
 class Session {
@@ -16,7 +23,7 @@ class Session {
   }
 
   async create() {
-  	this.set("timestamp", Date.now());
+    this.set("timestamp", Date.now());
     var db = new DB(root);
     await db.write(this.token,this.data)
     return true;
@@ -24,7 +31,9 @@ class Session {
 
   static async get(token) {
     var db = new DB(root);
-    return await db.read(token);
+    var data = await db.read(token);
+    if (data) return data;
+    else throw new Exception(401, "Invalid Token");
   }
 
   static async destroy(token) {

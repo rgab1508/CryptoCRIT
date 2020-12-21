@@ -26,11 +26,12 @@ class OTP {
     return code;
   }
 
-  async verify(token,otp) {
+  static async verify(token,otp) {
     var session = await Session.get(token); // TODO Need to work here
-    if (session.otp != otp) return false;
+    console.log(Date.now() - session.timestamp);
+    if (session.otp != otp) throw new Exception(401, "Incorrect OTP");
     if (Date.now() - session.timestamp > 600000) throw new Exception(401, "OTP Expired");
-    await OTPbase.revoke(token);
+    await Session.destroy(token);
     return {
       rollno: session.rollno
     }
@@ -43,6 +44,7 @@ class OTP {
     var session = new Session(token);
     session.set("rollno",this.rollno);
     session.set("otp",code);
+    session.set("type","verify");
     await session.create();
     var email = new Email(process.env.email,process.env.password);
     email.sendTo(email_id);
