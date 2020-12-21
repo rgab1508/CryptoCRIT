@@ -28,11 +28,9 @@ class Student {
   static async isNew(rollno) {
     var db = new DB(root);
     var student = await db.read(rollno);
-    if (student.public_key) return true;
-    else return false;
+    if (student.public_key) return false;
+    else return true;
   }
 }
-
-Student.exists("1019110").then(console.log)
 
 module.exports = Student;
