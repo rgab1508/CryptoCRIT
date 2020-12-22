@@ -26,9 +26,24 @@ class DB {
     return new Promise((resolve,reject) => {
       ref.set(data, (error) => {
         if (error) reject(error);
-	else resolve();
+	    else resolve();
       });
     });
+  }
+
+  async getLast() {
+  	var ref = this.db.ref(this.path).limitToLast(1);
+    return new Promise((resolve,reject) => {
+      ref.once("value", (snapshot) => {
+        resolve(snapshot.val());
+      });
+    });
+  }
+
+  async push(data) {
+    var ref = this.db.ref(this.path);
+    await ref.push(data);
+    return true;
   }
 
   async remove(key) {

@@ -94,6 +94,9 @@ class Block {
       else if((lastBlock.difficulty - 1) > 0) {
         return lastBlock.difficulty - 1;
       }
+      else {
+        return 1;
+      }
     }
 
     static isBlockValid(lastBlock, block){
