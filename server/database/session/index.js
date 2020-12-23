@@ -41,6 +41,11 @@ class Session {
     await db.remove(token);
     return true;
   }
+
+  static async isLoggedIn(token) {
+  	var session = await Session.get(token);
+  	if (session.type != "login") throw new Exception(401, "Incorrect Token");
+  }
 }
 
 module.exports = Session;

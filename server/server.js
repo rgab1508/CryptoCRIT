@@ -91,19 +91,27 @@ app.post('/create', async function(req,res) {
 app.post('/transaction', async function(req,res) {
   try {
     if (!req.body.token) throw new Exception(400,"parameter missing: token");  // token missing
+    if (!req.body.timestamp)  throw new Exception(400,"parameter missing: timestamp");  // timestamp missing
     if (!req.body.to_address)  throw new Exception(400,"parameter missing: to_address");  // to_address missing
     if (!req.body.amount) throw new Exception(400,"parameter missing: amount"); // amount missing
     if (!req.body.signature) throw new Exception(400,"parameter missing: signature"); // signature missing
+    await Session.isLoggedIn(req.body.token);
     var amount = parseInt(req.body.amount);
-    if (amount < 0) throw new Exception(400,"Invalid amount"); 
+    if (amount < 0) throw new Exception(400,"Amount must be positive");
     var student = await Session.get(req.body.token);
     var from_address = await Student.getPublicKey(student.rollno);
-    var transaction = new Transaction(from_address, req.body.to_address, amount);
+    var transaction = new Transaction(req.body.timestamp ,from_address, req.body.to_address, amount, req.body.signature);
     transaction.isValid();  // TODO work on this function
+    if (student.rollno != "admin") {
+      var balance = await Blocks.getBalanceFromAddress(from_address);
+      if (amount > balance) throw new Exception(401,"Transaction amount greater than balance"); // amount greater than balance
+    }
     await Blocks.add({
       from_address: from_address,
       to_address: req.body.to_address,
-      amount: amount
+      amount: amount,
+      signature: req.body.signature,
+      timestamp: req.body.timestamp
     });
     res.end("done");
   }
@@ -115,9 +123,10 @@ app.post('/transaction', async function(req,res) {
 app.get('/balance', async function(req,res) {
   try {
     if (!req.query.token) throw new Exception(400,"parameter missing: token");  // token missing
+    await Session.isLoggedIn(req.query.token);
     var student = await Session.get(req.query.token);
-    var public_key = await Student.getPublicKey();
-    var balance = await Blocks.getBalanaceFromAddress(public_key);
+    var public_key = await Student.getPublicKey(student.rollno);
+    var balance = await Blocks.getBalanceFromAddress(public_key);
     res.json({
       balance: balance
     });
