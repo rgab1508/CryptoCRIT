@@ -32,14 +32,22 @@ class Blocks {
    }
 
    static async getBlockchain() {
-   	var block_root = "cryptocrit/blockchain";
-    var db = new DB(block_root);
-    var blockchain = await db.read("");
-    return Object.values(blockchain);
+     var block_root = "cryptocrit/blockchain";
+     var db = new DB(block_root);
+     var blockchain = await db.read("");
+     return Object.values(blockchain);
    }
 
    static async getBalanceFromAddress(public_key) {
-
+     var balance = 0;
+     var blockchain = await Blocks.getBlockchain();
+     for (var block of blockchain) {
+     	console.log(block);
+       if (!block.data) continue;
+       if (block.data.from_address == public_key) balance -= block.data.amount;
+       if (block.data.to_address == public_key) balance += block.data.amount;
+     }
+     return balance;
    }
 }
 
