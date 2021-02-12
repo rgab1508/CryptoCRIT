@@ -40,6 +40,21 @@ class DB {
     });
   }
 
+  async transaction(handler) {
+    var ref = this.db.ref(this.path);
+    return new Promise((resolve,reject) => {
+      ref.transaction((val) => {
+        if (val != null) {
+          resolve();
+          return handler(val)
+        }
+        else return 0;
+      }, (err) => {
+        console.log(err);
+      }, true);
+    });
+  }
+
   async push(data) {
     var ref = this.db.ref(this.path);
     await ref.push(data);
