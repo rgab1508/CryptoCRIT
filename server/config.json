@@ -1,0 +1,6 @@
+{
+  "blockchain_db": "cryptocrit/blockchain",
+  "student_db": "cryptocrit/students",
+  "session_db": "cryptocrit/session",
+  "mine_rate": 600000
+}

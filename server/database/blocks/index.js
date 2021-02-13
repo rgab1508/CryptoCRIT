@@ -1,9 +1,10 @@
 require('dotenv').config({path: './../../.env'});
 
+const config = require("./../../config.json");
 var DB = require("./../index.js");
 var Block = require("./../../blockchain/block.js");
 
-var root = "cryptocrit/blockchain"
+var root = config.blockchain_db;
 
 class Blocks {
   constructor() {}  // TODO create interface to store blocks in firebase database

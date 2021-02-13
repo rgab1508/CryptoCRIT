@@ -1,10 +1,14 @@
 // TODO port block class here
 const SHA256 = require('crypto-js/sha256')
 
+const config = require("./../config.json");
+
 //TODO put this in config file
-const MILLISEC = 1;
-const SEC = 1000 * MILLISEC;
-const MINE_RATE = 4 * SEC;
+// const MILLISEC = 1;
+// const SEC = 1000 * MILLISEC;
+// const MINE_RATE = 4 * SEC;
+
+const MINE_RATE = config.mine_rate;
 
 function hexToBin(hexStr){
   
