@@ -10,6 +10,8 @@ const config = require("./../config.json");
 
 const MINE_RATE = config.mine_rate;
 
+const MAX_DIFF = config.max_difficulty;
+
 function hexToBin(hexStr){
   
   //TODO move hexToBin in utils
@@ -92,7 +94,7 @@ class Block {
     }
     
     static adjustDiff(lastBlock, new_timestamp){
-      if((new_timestamp - lastBlock.timestamp) < MINE_RATE){
+      if((new_timestamp - lastBlock.timestamp) < MINE_RATE && lastBlock.difficulty < MAX_DIFF){
         return lastBlock.difficulty + 1;
       }
       else if((lastBlock.difficulty - 1) > 0) {
