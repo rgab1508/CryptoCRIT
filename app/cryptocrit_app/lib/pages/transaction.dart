@@ -18,10 +18,11 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     print('Transaction build run');
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text('Transaction page'),
         centerTitle: true,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.grey[800],
       ),
       body: Text('This is a transaction page'),
     );

@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -7,66 +7,47 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  int _currentIndex = 0;
+  final List<Widget> _children = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-      child: Column(
-        children: [
-          SizedBox(height: 20),
-          Center(child: Text("Profile details go here")),
-          SizedBox(height: 20),
-          Card(
-            margin: EdgeInsets.all(10),
-            child: ListTile(
-              title: Text(
-                "Transactions",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ) ,
-              ),
-              tileColor: Colors.red,
-              onTap:() {
-                Navigator.pushNamed(context, '/transaction');
-              },
-            ),
+      backgroundColor: Colors.black,
+      //body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.blue,
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.attach_money),
+            label: 'Transactions',
           ),
-          Card(
-            margin: EdgeInsets.all(10),
-            child: ListTile(
-              title: Text(
-                "Blockchain",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ) ,
-              ),
-              tileColor: Colors.blue,
-              onTap:() {
-                Navigator.pushNamed(context, '/blockchain');
-              },
-            ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'History',
           ),
-          Card(
-            margin: EdgeInsets.all(10),
-            child: ListTile(
-              title: Text(
-                "History",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ) ,
-              ),
-              tileColor: Colors.green,
-              onTap:() {
-                Navigator.pushNamed(context, '/history');
-              },
-            ),
-          )
+          BottomNavigationBarItem(
+            icon: Icon(Icons.desktop_mac),
+            label: 'Blockchain',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Profile',
+          ),
         ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+
+          });
+        },
       ),
-      )
     );
   }
 }
+
