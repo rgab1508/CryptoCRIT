@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -7,26 +7,47 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  int _currentIndex = 0;
+  final List<Widget> _children = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-      child: Column(
-        children: [
-          Center(child: Text("This is meant to be a home page")),
-          SizedBox(height: 20),
-          ListTile(
-            ,
-            onTap: () {
-              Navigator.pushNamed(context, '/transaction');
-            },
-            title: Text("Transaction"),
-            tileColor: Colors.red,
-          )
-            
+      backgroundColor: Colors.black,
+      //body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.blue,
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.attach_money),
+            label: 'Transactions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.desktop_mac),
+            label: 'Blockchain',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Profile',
+          ),
         ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+
+          });
+        },
       ),
-      )
     );
   }
 }
+
