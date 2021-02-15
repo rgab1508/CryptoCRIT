@@ -22,11 +22,12 @@ class Email {
 
   async send() {
     var transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "hotmail",
       auth: {
         user: this.email,
         pass: this.password
-      }
+      },
+      secure: false
     });
     const mailOptions = {
       from: process.env.email,
