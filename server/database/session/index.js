@@ -1,5 +1,6 @@
 require('dotenv').config({path: './../../.env'});
 var DB = require("./../index.js");
+const config = require("./../../config.json");
 
 // TODO create interface to manage sessions
 
@@ -10,7 +11,7 @@ class Exception {
   } 
 }
 
-var root = "cryptocrit/session";
+var root = config.session_db;
 
 class Session {
   constructor(token) {

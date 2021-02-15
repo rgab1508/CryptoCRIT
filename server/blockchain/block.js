@@ -1,10 +1,16 @@
 // TODO port block class here
 const SHA256 = require('crypto-js/sha256')
 
+const config = require("./../config.json");
+
 //TODO put this in config file
-const MILLISEC = 1;
-const SEC = 1000 * MILLISEC;
-const MINE_RATE = 4 * SEC;
+// const MILLISEC = 1;
+// const SEC = 1000 * MILLISEC;
+// const MINE_RATE = 4 * SEC;
+
+const MINE_RATE = config.mine_rate;
+
+const MAX_DIFF = config.max_difficulty;
 
 function hexToBin(hexStr){
   
@@ -88,7 +94,7 @@ class Block {
     }
     
     static adjustDiff(lastBlock, new_timestamp){
-      if((new_timestamp - lastBlock.timestamp) < MINE_RATE){
+      if((new_timestamp - lastBlock.timestamp) < MINE_RATE && lastBlock.difficulty < MAX_DIFF){
         return lastBlock.difficulty + 1;
       }
       else if((lastBlock.difficulty - 1) > 0) {

@@ -1,5 +1,6 @@
 require('dotenv').config({path: './../../.env'});
 var DB = require("./../index.js");
+const config = require("./../../config.json");
 
 class Exception {
   constructor(code,message) {
@@ -21,7 +22,7 @@ class keypair {
   }
 }
 
-var root = "cryptocrit/students";
+var root = config.student_db;
 
 class Student {
   constructor() {}

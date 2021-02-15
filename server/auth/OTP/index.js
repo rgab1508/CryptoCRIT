@@ -49,7 +49,7 @@ class OTP {
     var email = new Email(process.env.email,process.env.password);
     email.sendTo(email_id);
     email.setSubject("OTP verification for CryptoCRIT");
-    email.setBody("Your OTP is " + code);
+    email.setBody(`<h3>Your OTP for CryptoCRIT is:</h3><h2>${code}</h2>`);
     await email.send();
     return token;
   }
