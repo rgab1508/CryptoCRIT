@@ -8,6 +8,12 @@ class Blockchain extends StatefulWidget {
 class _BlockchainState extends State<Blockchain> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("BLOCKCHAIN"),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+      ),
+    );
   }
 }

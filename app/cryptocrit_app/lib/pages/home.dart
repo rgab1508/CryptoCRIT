@@ -13,17 +13,57 @@ class _HomeState extends State<Home> {
       body: SafeArea(
       child: Column(
         children: [
-          Center(child: Text("This is meant to be a home page")),
           SizedBox(height: 20),
-          ListTile(
-            ,
-            onTap: () {
-              Navigator.pushNamed(context, '/transaction');
-            },
-            title: Text("Transaction"),
-            tileColor: Colors.red,
+          Center(child: Text("Profile details go here")),
+          SizedBox(height: 20),
+          Card(
+            margin: EdgeInsets.all(10),
+            child: ListTile(
+              title: Text(
+                "Transactions",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ) ,
+              ),
+              tileColor: Colors.red,
+              onTap:() {
+                Navigator.pushNamed(context, '/transaction');
+              },
+            ),
+          ),
+          Card(
+            margin: EdgeInsets.all(10),
+            child: ListTile(
+              title: Text(
+                "Blockchain",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ) ,
+              ),
+              tileColor: Colors.blue,
+              onTap:() {
+                Navigator.pushNamed(context, '/blockchain');
+              },
+            ),
+          ),
+          Card(
+            margin: EdgeInsets.all(10),
+            child: ListTile(
+              title: Text(
+                "History",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ) ,
+              ),
+              tileColor: Colors.green,
+              onTap:() {
+                Navigator.pushNamed(context, '/history');
+              },
+            ),
           )
-            
         ],
       ),
       )
