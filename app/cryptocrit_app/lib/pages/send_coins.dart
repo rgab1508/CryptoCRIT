@@ -20,7 +20,7 @@ class _TransactionsState extends State<Transactions> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Transaction page'),
+        title: Text('Send coins'),
         centerTitle: true,
         backgroundColor: Colors.grey[800],
       ),

@@ -19,7 +19,7 @@ class _HomeTransactionState extends State<HomeTransaction> {
             alignment: Alignment.center,
             child: RawMaterialButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/transaction');
+                Navigator.pushNamed(context, '/transactions');
               },
               elevation: 5.0,
               fillColor: Colors.purpleAccent,
@@ -47,7 +47,7 @@ class _HomeTransactionState extends State<HomeTransaction> {
             alignment: Alignment.center,
             child: RawMaterialButton(
               onPressed: () {
-
+                Navigator.pushNamed(context, '/receive_coins');
               },
               elevation: 5.0,
               fillColor: Colors.greenAccent,
@@ -59,10 +59,11 @@ class _HomeTransactionState extends State<HomeTransaction> {
               shape: CircleBorder(),
             ),
           ),
+          SizedBox(height: 10),
           Align(
             alignment: Alignment.center,
             child: Text(
-              "Recieve coins",
+              "Receive coins",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,
