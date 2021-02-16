@@ -13,13 +13,14 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    body: SafeArea(
-        child: Column(
-          children: [
-            FormBuilderField(builder: (FormFieldState<dynamic> fields) {
-
-            }, name: null)
-          ],
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+            ],
+          ),
         ),
       ),
     );
