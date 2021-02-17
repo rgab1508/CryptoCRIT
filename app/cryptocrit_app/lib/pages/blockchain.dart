@@ -9,11 +9,7 @@ class _BlockchainState extends State<Blockchain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("BLOCKCHAIN"),
-        centerTitle: true,
-        backgroundColor: Colors.green,
-      ),
+      backgroundColor: Colors.blue,
     );
   }
 }

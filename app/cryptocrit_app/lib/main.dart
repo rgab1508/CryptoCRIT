@@ -15,9 +15,9 @@ void main() => runApp(MaterialApp(
   theme: ThemeData(fontFamily: 'MartelSans'),
   initialRoute: '/home',
   routes: {
+    '/home' : (context) => Home(),
     '/' : (context) => Loading(),
     '/login' : (context) => Login(),
-    '/home' : (context) => Home(),
     '/blockchain' : (context) => Blockchain(),
     '/transactions' : (context) => Transactions(),
     '/receive_coins' : (context) => ReceiveCoins(),
