@@ -22,7 +22,7 @@ class _HomeTransactionState extends State<HomeTransaction> {
                 Navigator.pushNamed(context, '/transactions');
               },
               elevation: 5.0,
-              fillColor: Colors.purpleAccent,
+              fillColor: Colors.blue,
               child: Icon(
                 Icons.arrow_upward,
                 size: 70.0,
@@ -50,7 +50,7 @@ class _HomeTransactionState extends State<HomeTransaction> {
                 Navigator.pushNamed(context, '/receive_coins');
               },
               elevation: 5.0,
-              fillColor: Colors.greenAccent,
+              fillColor: Colors.lightGreenAccent,
               child: Icon(
                 Icons.arrow_downward,
                 size: 70.0,

@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.attach_money),
             label: 'Transactions',
-            backgroundColor: Colors.grey[800]
+            backgroundColor: Colors.grey[800],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),

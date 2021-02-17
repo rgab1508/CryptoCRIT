@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +21,37 @@ class _ProfileState extends State<Profile> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text("LOGOUT"),
+                          content: Text("Are you sure to logout ?"),
+                          actions: [
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacementNamed('/login');
+                                },
+                                child: Text("Yes")
+                            ),
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("No")
+                            )
+                          ],
+                        );
+                      }
+                    );
+                  },
+                  child: Text("LOGOUT"),
+                ),
+              ),
               SizedBox(height: 50),
               Align(
                 alignment: Alignment.center,
@@ -26,6 +61,10 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               SizedBox(height: 30),
+              Divider(
+                height: 20,
+                color: Colors.grey[700],
+              ),
               Center(
                 child: Text(
                   "Balance : ",
@@ -70,7 +109,6 @@ class _ProfileState extends State<Profile> {
                     color: Colors.white
                 ),
               ),
-
             ],
           ),
         ),
