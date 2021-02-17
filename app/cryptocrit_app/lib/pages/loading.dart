@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:cryptocrit_app/pages/home.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -8,6 +9,21 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+
+  /*void HomeEnter() async {
+    Navigator.pushReplacementNamed(
+        context,
+        '/home',
+    );
+  }*/
+
+  @override
+  void initState() {
+    super.initState();
+    print("Application loaded");
+    //HomeEnter();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,5 +1,6 @@
 import 'package:cryptocrit_app/pages/home_blockchain.dart';
 import 'package:cryptocrit_app/pages/home_transaction.dart';
+import 'package:cryptocrit_app/pages/blockchain.dart';
 import 'package:cryptocrit_app/pages/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _children1 = [
     HomeTransaction(),
     HomeBlockchain(),
-    HomeBlockchain(),
+    Blockchain(),
     Profile(),
   ];
 
