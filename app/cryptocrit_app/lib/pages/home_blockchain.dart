@@ -114,7 +114,7 @@ class BlockTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListTile(
-        title: Text("Block" + index.toString()),
+        title: Text("Block " + index.toString()),
         subtitle: Text(nonce.toString()),
       ),
     );
