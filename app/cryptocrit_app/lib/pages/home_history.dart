@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-
-class Blockchain extends StatefulWidget {
+class HomeHistory extends StatefulWidget {
   @override
-  _BlockchainState createState() => _BlockchainState();
+  _HomeHistoryState createState() => _HomeHistoryState();
 }
 
-class _BlockchainState extends State<Blockchain> {
-
+class _HomeHistoryState extends State<HomeHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

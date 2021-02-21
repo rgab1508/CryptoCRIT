@@ -1,9 +1,8 @@
 import 'package:cryptocrit_app/pages/home_blockchain.dart';
 import 'package:cryptocrit_app/pages/home_transaction.dart';
-import 'package:cryptocrit_app/pages/blockchain.dart';
+import 'package:cryptocrit_app/pages/home_history.dart';
 import 'package:cryptocrit_app/pages/profile.dart';
 import 'package:flutter/material.dart';
-
 
 class Home extends StatefulWidget {
   @override
@@ -11,12 +10,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   int _currentIndex = 0;
   final List<Widget> _children1 = [
     HomeTransaction(),
+    HomeHistory(),
     HomeBlockchain(),
-    Blockchain(),
     Profile(),
   ];
 
@@ -58,9 +56,7 @@ class _HomeState extends State<Home> {
           ),
         ],
         onTap: onTapped,
-
       ),
     );
   }
 }
-
