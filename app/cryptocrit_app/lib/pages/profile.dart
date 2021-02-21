@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 class Profile extends StatefulWidget {
@@ -34,7 +37,8 @@ class _ProfileState extends State<Profile> {
                           actions: [
                             FlatButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushReplacementNamed('/login');
+                                 //SystemChannels.platform.invokeMethod('SystemNavigator.pop()');
+                                 SystemNavigator.pop();
                                 },
                                 child: Text("Yes")
                             ),

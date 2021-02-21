@@ -1,4 +1,4 @@
-import 'dart:js';
+//import 'dart:js';
 
 import 'package:cryptocrit_app/pages/recieve_coins.dart';
 import 'package:flutter/material.dart';
