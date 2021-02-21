@@ -79,6 +79,7 @@ class _LoginState extends State<Login> {
                   Scaffold.of(context).showSnackBar(sb);
                 } else {
                   final token = jsonDecode(res.body)['token'];
+                  Navigator.pushNamed(context, '/otp_verify', arguments: token);
                 }
               }
               //Navigator.pushReplacementNamed(context, '/home');
