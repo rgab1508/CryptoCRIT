@@ -8,6 +8,7 @@ import 'package:cryptocrit_app/pages/login.dart';
 import 'package:cryptocrit_app/pages/home_blockchain.dart';
 import 'package:cryptocrit_app/pages/new_user.dart';
 import 'package:cryptocrit_app/pages/otp_verify.dart';
+import 'package:cryptocrit_app/pages/create_wallet.dart';
 
 //Main file
 void main() => runApp(MaterialApp(
@@ -21,7 +22,8 @@ void main() => runApp(MaterialApp(
         '/transactions': (context) => Transactions(),
         '/receive_coins': (context) => ReceiveCoins(),
         '/new_user': (context) => NewUserLogin(),
-        '/otp_verify': (context) => OTPverifyPage()
+        '/otp_verify': (context) => OTPverifyPage(),
+        '/create_wallet': (context) => CreateWalletPage()
       },
       home: Home(),
     ));

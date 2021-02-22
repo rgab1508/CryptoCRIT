@@ -28,6 +28,9 @@ dependencies:
   flutter_form_builder: ^4.2.0
   shared_preferences: ^0.5.12+4
   provider: ^4.3.3
+  cryptography: ^1.4.1
+  secp256k1: ^0.2.2
+  bip39: ^1.0.4
 
 
 
