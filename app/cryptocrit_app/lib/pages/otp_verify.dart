@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:http/http.dart' as http;
 
 class OTPverifyPage extends StatelessWidget {
@@ -48,17 +50,38 @@ class OTPverifyPage extends StatelessWidget {
             //check if otp is valid
             final url = "https://cryptocrit.herokuapp.com/verify";
             final token = ModalRoute.of(context).settings.arguments;
-            var sb = SnackBar(
-              content: Text(token),
-            );
-            Scaffold.of(context).showSnackBar(sb);
+            // var sb = SnackBar(
+            //   content: Text(token),
+            // );
+            // Scaffold.of(context).showSnackBar(sb);
 
             final res = await http.post(url,
                 headers: <String, String>{
                   'Content-Type': 'application/json; charset=UTF-8',
                 },
                 body: jsonEncode(<String, String>{'token': token, 'otp': otp}));
+
+            if (res.statusCode != 200) {
+              var sb = SnackBar(
+                content: Text(res.body),
+              );
+              Scaffold.of(context).showSnackBar(sb);
+            } else {
+              var finalToken = jsonDecode(res.body)['token'];
+              final pref = await SharedPreferences.getInstance();
+              pref.setString('token', finalToken.toString());
+
+              Navigator.pushNamed(context, '/create_wallet');
+            }
           },
+          child: Text(
+            "Submit",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );
