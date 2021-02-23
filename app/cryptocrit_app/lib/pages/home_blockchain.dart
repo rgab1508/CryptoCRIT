@@ -61,6 +61,7 @@ class _HomeBlockchainState extends State<HomeBlockchain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: _loading
           ? Container(
               child: Center(
@@ -69,24 +70,33 @@ class _HomeBlockchainState extends State<HomeBlockchain> {
           : Container(
               child: Column(
               children: <Widget>[
-                Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(top: 30),
-                    child: Text(
-                      "Blocks",
-                      style: TextStyle(fontSize: 50),
-                    )),
-                Container(
-                  height: 500,
-                  child: ListView.builder(
-                      itemCount: chain.length,
-                      itemBuilder: (context, index) => BlockTile(
-                            index: chain[index].index,
-                            timestamp: chain[index].timestamp,
-                            hash: chain[index].hash,
-                            prevHash: chain[index].prevHash,
-                            nonce: chain[index].nonce,
-                          )),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(top: 30),
+                      child: Text(
+                        "Blocks",
+                        style: TextStyle(
+                            fontSize: 50,
+                            color: Colors.white,
+                        ),
+                      )),
+                ),
+                Flexible(
+                  flex: 4,
+                  child: Container(
+                    height: 555,
+                    child: ListView.builder(
+                        itemCount: chain.length,
+                        itemBuilder: (context, index) => BlockTile(
+                              index: chain[index].index,
+                              timestamp: chain[index].timestamp,
+                              hash: chain[index].hash,
+                              prevHash: chain[index].prevHash,
+                              nonce: chain[index].nonce,
+                            )),
+                  ),
                 )
               ],
             )),
@@ -113,9 +123,13 @@ class BlockTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListTile(
-        title: Text("Block " + index.toString()),
-        subtitle: Text(nonce.toString()),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+          title: Text("Block " + index.toString()),
+          subtitle: Text(timestamp.toString()),
+          tileColor: Colors.lightGreenAccent,
+        ),
       ),
     );
   }
