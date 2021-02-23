@@ -67,11 +67,19 @@ class OTPverifyPage extends StatelessWidget {
               );
               Scaffold.of(context).showSnackBar(sb);
             } else {
-              var finalToken = jsonDecode(res.body)['token'];
+              var data = jsonDecode(res.body);
+              var finalToken = data['token'];
+              var isNew = data['isNew'];
               final pref = await SharedPreferences.getInstance();
               pref.setString('token', finalToken.toString());
-
-              Navigator.pushNamed(context, '/create_wallet');
+              if (isNew) {
+                Navigator.pushNamed(context, '/create_wallet');
+              } else {
+                //@TODO Get password mneonics and verify if its correct and login in the user if correct
+                //To create Route and Page for entering password
+                //Navigator.pushReplacementNamed(context, '/enter_password');
+                print("Existing User");
+              }
             }
           },
           child: Text(
