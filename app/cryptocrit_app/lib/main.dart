@@ -1,5 +1,6 @@
 //import 'dart:js';
 
+import 'package:cryptocrit_app/pages/logo_screen.dart';
 import 'package:cryptocrit_app/pages/recieve_coins.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptocrit_app/pages/send_coins.dart';
@@ -14,8 +15,9 @@ import 'package:cryptocrit_app/pages/create_wallet.dart';
 void main() => runApp(MaterialApp(
       title: 'CryptoCrit',
       theme: ThemeData(fontFamily: 'MartelSans'),
-      initialRoute: '/login',
+      initialRoute: '/logo_screen',
       routes: {
+        '/logo_screen': (context) => LogoScreen(),
         '/home': (context) => Home(),
         '/login': (context) => Login(),
         '/blockchain': (context) => HomeBlockchain(),
