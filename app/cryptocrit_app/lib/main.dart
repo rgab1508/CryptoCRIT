@@ -24,7 +24,7 @@ void main() => runApp(MaterialApp(
         '/transactions': (context) => Transactions(),
         '/receive_coins': (context) => ReceiveCoins(),
         '/new_user': (context) => NewUserLogin(),
-        '/otp_verify': (context) => OTPverifyPage(),
+        '/otp_verify': (context) => OTPVerifyPage(),
         '/create_wallet': (context) => CreateWalletPage()
       },
       home: Home(),

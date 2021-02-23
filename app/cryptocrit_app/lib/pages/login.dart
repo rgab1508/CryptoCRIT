@@ -11,6 +11,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool _loadingButton = false;
+
   @override
   Widget build(BuildContext context) {
     final myController = TextEditingController();
@@ -56,11 +58,17 @@ class _LoginState extends State<Login> {
             onPressed: () async {
               SystemChannels.textInput.invokeMethod('TextInput.hide');
               rollNo = myController.text;
+              setState(() {
+                _loadingButton = true;
+              });
               if (rollNo.length != 7) {
                 var sb = SnackBar(
                   content: Text("Enter a vaild Roll No."),
                 );
                 Scaffold.of(context).showSnackBar(sb);
+                setState(() {
+                  _loadingButton = false;
+                });
               } else {
                 //Checking if rollno exists in DB and if exists trying to login
                 final res = await http.post(
@@ -73,6 +81,9 @@ class _LoginState extends State<Login> {
                   }),
                 );
                 if (res.statusCode != 200) {
+                  setState(() {
+                    _loadingButton = false;
+                  });
                   final sb = SnackBar(
                     content: Text(res.body.toString()),
                   );
@@ -84,14 +95,19 @@ class _LoginState extends State<Login> {
               }
               //Navigator.pushReplacementNamed(context, '/home');
             },
-            child: Text(
-              "Submit",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: _loadingButton
+                ? CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                    strokeWidth: 2,
+                  )
+                : Text(
+                    "Submit",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
         ));
 

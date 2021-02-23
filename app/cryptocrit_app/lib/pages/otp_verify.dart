@@ -8,7 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
 
-class OTPverifyPage extends StatelessWidget {
+class OTPVerifyPage extends StatefulWidget {
+  @override
+  _OTPverifyPageState createState() => _OTPverifyPageState();
+}
+
+class _OTPverifyPageState extends State<OTPVerifyPage> {
+  bool _loadingButton = false;
   @override
   Widget build(BuildContext context) {
     final otpTextController = TextEditingController();
@@ -46,6 +52,9 @@ class OTPverifyPage extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           onPressed: () async {
             SystemChannels.textInput.invokeMethod('TextInput.hide');
+            setState(() {
+              _loadingButton = true;
+            });
             final otp = otpTextController.text;
             //check if otp is valid
             final url = "https://cryptocrit.herokuapp.com/verify";
@@ -66,6 +75,9 @@ class OTPverifyPage extends StatelessWidget {
                 content: Text(res.body),
               );
               Scaffold.of(context).showSnackBar(sb);
+              setState(() {
+                _loadingButton = false;
+              });
             } else {
               var data = jsonDecode(res.body);
               var finalToken = data['token'];
@@ -82,14 +94,19 @@ class OTPverifyPage extends StatelessWidget {
               }
             }
           },
-          child: Text(
-            "Submit",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: _loadingButton
+              ? CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  strokeWidth: 2,
+                )
+              : Text(
+                  "Submit",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ),
       ),
     );
