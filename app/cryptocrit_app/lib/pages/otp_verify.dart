@@ -64,10 +64,6 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
             final data = jsonDecode(ModalRoute.of(context).settings.arguments);
             final token = data['token'];
             rollNo = data['rollNo'];
-            // var sb = SnackBar(
-            //   content: Text(token),
-            // );
-            // Scaffold.of(context).showSnackBar(sb);
 
             final res = await http.post(url,
                 headers: <String, String>{
@@ -89,13 +85,10 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
               var isNew = data['isNew'];
               final pref = await SharedPreferences.getInstance();
               pref.setString('token', finalToken.toString());
-              pref.setString('rollNo', rollNo.toString());
+              pref.setString('roll_no', rollNo.toString());
               if (isNew) {
                 Navigator.pushNamed(context, '/create_wallet');
               } else {
-                //@TODO Get password mneonics and verify if its correct and login in the user if correct
-                //To create Route and Page for entering password
-                //Navigator.pushReplacementNamed(context, '/enter_password');
                 Navigator.pushReplacementNamed(context, '/password_login');
                 print("Existing User");
               }
