@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeTransaction extends StatefulWidget {
   @override
@@ -6,6 +8,7 @@ class HomeTransaction extends StatefulWidget {
 }
 
 class _HomeTransactionState extends State<HomeTransaction> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +37,7 @@ class _HomeTransactionState extends State<HomeTransaction> {
           SizedBox(height: 10),
           Align(
             alignment: Alignment.center,
-            child: Text(
+            child: AutoSizeText(
               "Send coins",
               style: TextStyle(
                 color: Colors.white,
