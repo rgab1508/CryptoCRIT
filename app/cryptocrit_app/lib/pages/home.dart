@@ -3,6 +3,7 @@ import 'package:cryptocrit_app/pages/home_transaction.dart';
 import 'package:cryptocrit_app/pages/home_history.dart';
 import 'package:cryptocrit_app/pages/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -26,6 +27,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     return Scaffold(
       body: _children1[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
