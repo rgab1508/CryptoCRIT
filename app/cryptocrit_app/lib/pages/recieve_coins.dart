@@ -16,13 +16,22 @@ class _ReceiveCoinsState extends State<ReceiveCoins> {
       appBar: AppBar(
         title: Text("Receive coins"),
         centerTitle: true,
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Color(0xff7e57c2),
         elevation: 0,
       ),
       backgroundColor: Colors.black,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            "QR code",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Image.network('https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=${publicKey}&choe=UTF-8'),

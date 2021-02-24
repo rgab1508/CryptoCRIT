@@ -42,19 +42,41 @@ class _ProfileState extends State<Profile> {
                             return AlertDialog(
                               title: Text("LOGOUT"),
                               content: Text("Are you sure to logout ?"),
+                              backgroundColor: Colors.black,
+                              titleTextStyle: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                              contentTextStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                               actions: [
                                 FlatButton(
                                     onPressed: () {
                                      //SystemChannels.platform.invokeMethod('SystemNavigator.pop()');
                                      SystemNavigator.pop();
                                     },
-                                    child: Text("Yes")
+                                    child: Text(
+                                        "Yes",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
                                 ),
                                 FlatButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text("No")
+                                    child: Text(
+                                        "No",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    )
                                 )
                               ],
                             );
@@ -65,7 +87,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
-                Flexible(child: SizedBox(height: 50),flex:0),
+                Flexible(child: SizedBox(height:50),flex:0),
                 Flexible(
                   flex: 3,
                   child: Align(

@@ -15,9 +15,22 @@ class _HomeTransactionState extends State<HomeTransaction> {
       backgroundColor: Colors.black,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 30),
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Container(
+              height: 95,
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Balance : ",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
           Align(
             alignment: Alignment.center,
             child: RawMaterialButton(
@@ -72,7 +85,7 @@ class _HomeTransactionState extends State<HomeTransaction> {
                 fontSize: 20.0,
               ),
             ),
-          )
+          ),
         ],
       )
     );
