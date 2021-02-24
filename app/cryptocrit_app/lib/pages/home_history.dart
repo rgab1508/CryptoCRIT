@@ -9,7 +9,26 @@ class _HomeHistoryState extends State<HomeHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Column(
+          children: [ 
+            Container(
+              height: 120,
+              alignment: Alignment.center,
+              child: Text(
+                "Transaction history",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ]
+        ),
+      )
+
     );
   }
 }

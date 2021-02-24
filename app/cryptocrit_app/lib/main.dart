@@ -2,6 +2,7 @@
 
 import 'package:cryptocrit_app/pages/logo_screen.dart';
 import 'package:cryptocrit_app/pages/recieve_coins.dart';
+import 'package:cryptocrit_app/pages/send_coins_amount.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptocrit_app/pages/send_coins.dart';
 import 'package:cryptocrit_app/pages/home.dart';
@@ -28,6 +29,7 @@ void main() => runApp(MaterialApp(
         '/otp_verify': (context) => OTPVerifyPage(),
         '/create_wallet': (context) => CreateWalletPage(),
         '/password_login': (context) => PasswordLoginPage(),
+        '/send_coins_a':(context) => SendAmountTransactions(),
       },
-      home: Home(),
+      //home: Home(),
     ));
