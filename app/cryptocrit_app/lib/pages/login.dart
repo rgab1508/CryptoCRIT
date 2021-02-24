@@ -37,6 +37,8 @@ class _LoginState extends State<Login> {
         fontWeight: FontWeight.bold,
       ),
       decoration: InputDecoration(
+          fillColor: Colors.grey[850],
+          filled: true,
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'Roll No.',
           hintStyle: TextStyle(
@@ -90,7 +92,9 @@ class _LoginState extends State<Login> {
                   Scaffold.of(context).showSnackBar(sb);
                 } else {
                   final token = jsonDecode(res.body)['token'];
-                  Navigator.pushNamed(context, '/otp_verify', arguments: token);
+                  Navigator.pushReplacementNamed(context, '/otp_verify',
+                      arguments: jsonEncode(
+                          <String, String>{'token': token, 'rollNo': rollNo}));
                 }
               }
               //Navigator.pushReplacementNamed(context, '/home');
@@ -112,7 +116,7 @@ class _LoginState extends State<Login> {
         ));
 
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(12.0),
