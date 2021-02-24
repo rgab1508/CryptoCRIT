@@ -93,7 +93,7 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
           minWidth: MediaQuery.of(context).size.width * 0.65,
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           onPressed: () {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushReplacementNamed(context, '/home');
           },
           child: Text(
             "Next >>",
@@ -102,7 +102,7 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
         ));
 
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.black,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
