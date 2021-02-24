@@ -33,7 +33,7 @@ class _LogoScreenState extends State<LogoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.black,
       body: Center(
         child: Image(
           image: AssetImage('assets/logo.png'),

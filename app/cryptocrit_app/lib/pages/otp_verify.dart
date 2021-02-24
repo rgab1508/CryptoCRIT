@@ -8,7 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
 
-class OTPverifyPage extends StatelessWidget {
+class OTPVerifyPage extends StatefulWidget {
+  @override
+  _OTPverifyPageState createState() => _OTPverifyPageState();
+}
+
+class _OTPverifyPageState extends State<OTPVerifyPage> {
+  bool _loadingButton = false;
+  var rollNo;
   @override
   Widget build(BuildContext context) {
     final otpTextController = TextEditingController();
@@ -26,6 +33,8 @@ class OTPverifyPage extends StatelessWidget {
         fontWeight: FontWeight.bold,
       ),
       decoration: InputDecoration(
+          fillColor: Colors.grey[850],
+          filled: true,
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'OTP',
           hintStyle: TextStyle(
@@ -46,10 +55,15 @@ class OTPverifyPage extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           onPressed: () async {
             SystemChannels.textInput.invokeMethod('TextInput.hide');
+            setState(() {
+              _loadingButton = true;
+            });
             final otp = otpTextController.text;
             //check if otp is valid
             final url = "https://cryptocrit.herokuapp.com/verify";
-            final token = ModalRoute.of(context).settings.arguments;
+            final data = jsonDecode(ModalRoute.of(context).settings.arguments);
+            final token = data['token'];
+            rollNo = data['rollNo'];
             // var sb = SnackBar(
             //   content: Text(token),
             // );
@@ -66,36 +80,46 @@ class OTPverifyPage extends StatelessWidget {
                 content: Text(res.body),
               );
               Scaffold.of(context).showSnackBar(sb);
+              setState(() {
+                _loadingButton = false;
+              });
             } else {
               var data = jsonDecode(res.body);
               var finalToken = data['token'];
               var isNew = data['isNew'];
               final pref = await SharedPreferences.getInstance();
               pref.setString('token', finalToken.toString());
+              pref.setString('rollNo', rollNo.toString());
               if (isNew) {
                 Navigator.pushNamed(context, '/create_wallet');
               } else {
                 //@TODO Get password mneonics and verify if its correct and login in the user if correct
                 //To create Route and Page for entering password
                 //Navigator.pushReplacementNamed(context, '/enter_password');
+                Navigator.pushReplacementNamed(context, '/password_login');
                 print("Existing User");
               }
             }
           },
-          child: Text(
-            "Submit",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: _loadingButton
+              ? CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  strokeWidth: 2,
+                )
+              : Text(
+                  "Submit",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ),
       ),
     );
 
     return Scaffold(
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Colors.black,
         body: SafeArea(
             child: Padding(
           padding: EdgeInsets.all(12.0),

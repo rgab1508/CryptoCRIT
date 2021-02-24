@@ -11,6 +11,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool _loadingButton = false;
+
   @override
   Widget build(BuildContext context) {
     final myController = TextEditingController();
@@ -35,6 +37,8 @@ class _LoginState extends State<Login> {
         fontWeight: FontWeight.bold,
       ),
       decoration: InputDecoration(
+          fillColor: Colors.grey[850],
+          filled: true,
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'Roll No.',
           hintStyle: TextStyle(
@@ -56,11 +60,17 @@ class _LoginState extends State<Login> {
             onPressed: () async {
               SystemChannels.textInput.invokeMethod('TextInput.hide');
               rollNo = myController.text;
+              setState(() {
+                _loadingButton = true;
+              });
               if (rollNo.length != 7) {
                 var sb = SnackBar(
                   content: Text("Enter a vaild Roll No."),
                 );
                 Scaffold.of(context).showSnackBar(sb);
+                setState(() {
+                  _loadingButton = false;
+                });
               } else {
                 //Checking if rollno exists in DB and if exists trying to login
                 final res = await http.post(
@@ -73,30 +83,40 @@ class _LoginState extends State<Login> {
                   }),
                 );
                 if (res.statusCode != 200) {
+                  setState(() {
+                    _loadingButton = false;
+                  });
                   final sb = SnackBar(
                     content: Text(res.body.toString()),
                   );
                   Scaffold.of(context).showSnackBar(sb);
                 } else {
                   final token = jsonDecode(res.body)['token'];
-                  Navigator.pushNamed(context, '/otp_verify', arguments: token);
+                  Navigator.pushReplacementNamed(context, '/otp_verify',
+                      arguments: jsonEncode(
+                          <String, String>{'token': token, 'rollNo': rollNo}));
                 }
               }
               //Navigator.pushReplacementNamed(context, '/home');
             },
-            child: Text(
-              "Submit",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: _loadingButton
+                ? CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                    strokeWidth: 2,
+                  )
+                : Text(
+                    "Submit",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
         ));
 
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(12.0),
