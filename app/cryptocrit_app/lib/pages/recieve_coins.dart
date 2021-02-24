@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReceiveCoins extends StatefulWidget {
   @override
@@ -7,12 +7,27 @@ class ReceiveCoins extends StatefulWidget {
 }
 
 class _ReceiveCoinsState extends State<ReceiveCoins> {
+  String publicKey;
+  var _loading = true;
 
-  String publicKey = 'This is a QR';
+  Future<void> getPublicKey() async {
+    final pref = await SharedPreferences.getInstance();
+    publicKey = pref.getString('public_key');
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPublicKey();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text("Receive coins"),
         centerTitle: true,
@@ -39,5 +54,6 @@ class _ReceiveCoinsState extends State<ReceiveCoins> {
         ],
       )
     );
+
   }
 }

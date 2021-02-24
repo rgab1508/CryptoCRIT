@@ -82,7 +82,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                       var privateKey = PrivateKey.fromHex(pk);
                       var publicKey = privateKey.publicKey.toHex();
                       final pref = await SharedPreferences.getInstance();
-                      var rollNo = pref.getString('rollNo');
+                      var rollNo = pref.getString('roll_no');
                       final res = await http.get(
                           'https://cryptocrit.herokuapp.com/user?rollno=$rollNo');
                       if (res.statusCode != 200) {
