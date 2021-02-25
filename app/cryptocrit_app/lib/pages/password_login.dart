@@ -151,7 +151,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
           children: [
             Text(
               "Enter PassPhrase",
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize:35),
             ),
             SizedBox(
               height: 20,
