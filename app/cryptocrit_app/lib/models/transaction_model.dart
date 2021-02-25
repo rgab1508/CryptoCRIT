@@ -1,14 +1,14 @@
 class Transaction {
   final int timestamp;
-  final String from_address;
-  final String to_address;
+  final String fromAddress;
+  final String toAddress;
   final int amount;
   final String signature;
 
   Transaction(
       {this.timestamp,
-      this.from_address,
-      this.to_address,
+      this.fromAddress,
+      this.toAddress,
       this.amount,
       this.signature});
 }
