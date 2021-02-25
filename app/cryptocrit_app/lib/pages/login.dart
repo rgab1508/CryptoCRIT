@@ -26,11 +26,8 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
 
     final rollField = TextField(
+      autofocus: true,
       controller: myController,
-      keyboardType: TextInputType.number,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-      ],
       cursorColor: Colors.white,
       obscureText: false,
       style: TextStyle(

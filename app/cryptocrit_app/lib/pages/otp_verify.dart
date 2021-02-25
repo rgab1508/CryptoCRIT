@@ -21,6 +21,7 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
     final otpTextController = TextEditingController();
 
     final otpTextBox = TextField(
+      autofocus: true,
       controller: otpTextController,
       keyboardType: TextInputType.number,
       inputFormatters: [
@@ -135,6 +136,18 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
                     fontSize: 40.0,
                     color: Colors.white,
                     fontWeight: FontWeight.w100),
+              ),
+              SizedBox(height: 15),
+              Padding(
+                padding: EdgeInsets.all(12),
+                child: Text(
+                  "Enter the OTP received from <email>",
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
+                ),
               ),
               SizedBox(
                 height: 45,
