@@ -40,15 +40,23 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
           hintStyle: TextStyle(
             color: Colors.grey[400],
           ),
-          border: OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(32.0),
-          )),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.0),
+            borderSide: BorderSide(
+              color: Color(0xff7e57c2),
+              width: 03,
+            )
+          )
+      ),
     );
 
     final submitButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.blue,
+      color: Color(0xff7e57c2),
       child: Builder(
         builder: (context) => MaterialButton(
           minWidth: MediaQuery.of(context).size.width,
