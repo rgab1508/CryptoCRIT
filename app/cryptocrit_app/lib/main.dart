@@ -1,7 +1,6 @@
 //import 'dart:js';
 
 import 'package:cryptocrit_app/pages/logo_screen.dart';
-import 'package:cryptocrit_app/pages/qr_scan_test.dart';
 import 'package:cryptocrit_app/pages/recieve_coins.dart';
 import 'package:cryptocrit_app/pages/send_coins_amount.dart';
 import 'package:flutter/material.dart';
