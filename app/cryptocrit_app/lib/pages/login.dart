@@ -13,16 +13,17 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool _loadingButton = false;
 
+  final myController = TextEditingController();
+  String rollNo;
+
+  @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final myController = TextEditingController();
-    String rollNo;
-
-    @override
-    void dispose() {
-      myController.dispose();
-      super.dispose();
-    }
 
     final rollField = TextField(
       controller: myController,
@@ -44,15 +45,23 @@ class _LoginState extends State<Login> {
           hintStyle: TextStyle(
             color: Colors.grey[400],
           ),
-          border: OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32)
+          ),
+          focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(32.0),
+            borderSide: BorderSide(
+              color: Color(0xff7e57c2),
+              width: 3
+            )
+
           )),
     );
 
     final submitButton = Material(
         elevation: 5.0,
         borderRadius: BorderRadius.circular(30),
-        color: Colors.blue,
+        color: Color(0xff7e57c2),
         child: Builder(
           builder: (context) => MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
