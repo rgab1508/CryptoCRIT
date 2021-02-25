@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,14 +10,23 @@ class SendAmountTransactions extends StatefulWidget {
 }
 
 class _SendAmountTransactionsState extends State<SendAmountTransactions> {
-
   final trController = TextEditingController();
+  var rollNo;
+  var publicKey;
   String coins;
 
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      final data = jsonDecode(ModalRoute.of(context).settings.arguments);
+      rollNo = data['roll_no'];
+      publicKey = data['public_key'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
     final transactCoins = TextField(
       controller: trController,
       keyboardType: TextInputType.number,
@@ -42,10 +53,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32.0),
-          borderSide: BorderSide(
-              color: Color(0xff7e57c2),
-              width: 4
-          ),
+          borderSide: BorderSide(color: Color(0xff7e57c2), width: 4),
         ),
       ),
     );
@@ -62,50 +70,45 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               SystemChannels.textInput.invokeMethod('TextInput.hide');
               coins = trController.text;
               showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    backgroundColor: Colors.black,
-                    title: Text("SUBMIT TRANSACTION"),
-                    content: Text("Are you sure to submit ?"),
-                    contentTextStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                    titleTextStyle: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20
-                    ),
-                    actions: [
-                      FlatButton(
-                        onPressed: () {
-
-                          },
-                        child: Text(
-                          "Yes",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.black,
+                      title: Text("SUBMIT TRANSACTION"),
+                      content: Text("Are you sure to submit ?"),
+                      contentTextStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      titleTextStyle: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                      actions: [
+                        FlatButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Yes",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      FlatButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
+                        FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
                               "No",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          )
-                      )
-                    ],
-                  );
-                }
-              );
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ))
+                      ],
+                    );
+                  });
             },
             child: AutoSizeText(
               "Submit",
@@ -113,8 +116,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 15
-              ),
+                  fontSize: 15),
               overflowReplacement: Icon(
                 Icons.send,
                 color: Colors.white,
@@ -127,7 +129,6 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
     final height1 = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-
         centerTitle: true,
         backgroundColor: Color(0xff7e57c2),
       ),
@@ -141,10 +142,10 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
             Flexible(
               flex: 3,
               child: SizedBox(
-                height: height1*0.35,
+                height: height1 * 0.35,
                 child: Center(
                   child: AutoSizeText(
-                    "Enter the amount",
+                    "Send CC to $rollNo",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -156,12 +157,9 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
                 ),
               ),
             ),
-            Flexible(flex: 1,child: transactCoins),
-            Flexible(flex: 2,child: SizedBox(height: height1*0.05)),
-            Flexible(flex: 1,child: submitButton),
-
-
-
+            Flexible(flex: 1, child: transactCoins),
+            Flexible(flex: 2, child: SizedBox(height: height1 * 0.05)),
+            Flexible(flex: 1, child: submitButton),
           ],
         ),
       ),
