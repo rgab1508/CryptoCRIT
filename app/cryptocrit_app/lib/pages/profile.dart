@@ -104,7 +104,7 @@ class _ProfileState extends State<Profile> {
             Navigator.pop(context);
             Navigator.pop(context);
             Navigator.pop(context);
-            Navigator.pop(context);
+            //Navigator.pop(context);
           },
         ),
         CupertinoDialogAction(

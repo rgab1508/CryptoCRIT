@@ -67,12 +67,11 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
     final _platformDialogC = CupertinoAlertDialog(
       title: new Text(
         "SUBMIT TRANSACTION",
-        style: TextStyle(color: Colors.white, fontSize: 20),
+        style: TextStyle(fontSize: 20),
       ),
       content: new Text(
         "Are you sure to submit ?",
         style: TextStyle(
-          color: Colors.white,
           fontSize: 18,
         ),
       ),
