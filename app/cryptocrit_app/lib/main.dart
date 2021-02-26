@@ -13,6 +13,7 @@ import 'package:cryptocrit_app/pages/otp_verify.dart';
 import 'package:cryptocrit_app/pages/create_wallet.dart';
 import 'package:cryptocrit_app/pages/password_login.dart';
 import 'package:cryptocrit_app/pages/qr_scan.dart';
+//import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 //Main file
 void main() => runApp(MaterialApp(
