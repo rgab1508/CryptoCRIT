@@ -60,7 +60,9 @@ class _ProfileState extends State<Profile> {
       ),
       actions: [
         FlatButton(
-            onPressed: () {
+            onPressed: () async {
+              final pref = await SharedPreferences.getInstance();
+              await pref.clear();
               //SystemChannels.platform.invokeMethod('SystemNavigator.pop()');
               SystemNavigator.pop();
             },
@@ -100,10 +102,11 @@ class _ProfileState extends State<Profile> {
         CupertinoDialogAction(
           isDefaultAction: true,
           child: Text("Yes"),
-          onPressed: () {
+          onPressed: () async {
+            final pref = await SharedPreferences.getInstance();
+            await pref.clear();
             Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
+            Navigator.popAndPushNamed(context, '/login');
             //Navigator.pop(context);
           },
         ),
