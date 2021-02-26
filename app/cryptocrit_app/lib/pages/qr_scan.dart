@@ -30,7 +30,13 @@ class _QRScanPageState extends State<QRScanPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _buildQrView(context));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Scan QR"),
+        backgroundColor: Color(0xff7e57c2),
+      ),
+      body: _buildQrView(context),
+    );
   }
 
   Widget _buildQrView(BuildContext context) {
