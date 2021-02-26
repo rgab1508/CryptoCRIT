@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+//import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -24,7 +25,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-
     final rollField = TextField(
       autofocus: true,
       controller: myController,
@@ -42,17 +42,11 @@ class _LoginState extends State<Login> {
           hintStyle: TextStyle(
             color: Colors.grey[400],
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32)
-          ),
+          enabledBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32)),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.0),
-            borderSide: BorderSide(
-              color: Color(0xff7e57c2),
-              width: 3
-            )
-
-          )),
+              borderRadius: BorderRadius.circular(32.0),
+              borderSide: BorderSide(color: Color(0xff7e57c2), width: 3))),
     );
 
     final submitButton = Material(
