@@ -37,7 +37,7 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     final rollField = TextField(
       controller: myController,
-      autofocus: true,
+      autofocus: false,
       keyboardType: TextInputType.number,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -128,7 +128,7 @@ class _TransactionsState extends State<Transactions> {
                     overflowReplacement: Icon(
                       Icons.send,
                       color: Colors.white,
-                      size: 25,
+                      size: 22,
                     ),
                     maxLines: 1,
                   ),
@@ -156,7 +156,7 @@ class _TransactionsState extends State<Transactions> {
               overflowReplacement: Icon(
                 Icons.qr_code,
                 color: Colors.white,
-                size: 25,
+                size: 22,
               ),
             ),
           ),
@@ -171,48 +171,50 @@ class _TransactionsState extends State<Transactions> {
         centerTitle: true,
         backgroundColor: Color(0xff7e57c2),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(13.0),
-        child: Column(
-          children: [
-            Flexible(
-              flex: 5,
-              child: SizedBox(
-                height: height1 * 0.35,
-                child: Center(
-                  child: AutoSizeText(
-                    "Send CritCoins",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(13.0),
+          child: Column(
+            children: [
+              Flexible(
+                flex: 5,
+                child: SizedBox(
+                  height: height1 * 0.35,
+                  child: Center(
+                    child: AutoSizeText(
+                      "Send CritCoins",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
+                      minFontSize: 25,
                     ),
-                    minFontSize: 25,
                   ),
                 ),
               ),
-            ),
-            Flexible(flex: 2, child: rollField),
-            SizedBox(height: height1 * 0.015),
-            SizedBox(height: height1 * 0.01),
-            SizedBox(height: height1 * 0.03),
-            Flexible(child: submitButton, flex: 2),
-            Flexible(child: SizedBox(height: height1 * 0.020), flex: 1),
-            Flexible(
-              flex: 1,
-              child: AutoSizeText(
-                "OR",
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-                minFontSize: 10,
+              Flexible(flex: 2, child: rollField),
+              SizedBox(height: height1 * 0.015),
+              SizedBox(height: height1 * 0.01),
+              SizedBox(height: height1 * 0.03),
+              Flexible(child: submitButton, flex: 2),
+              Flexible(child: SizedBox(height: height1 * 0.020), flex: 1),
+              Flexible(
+                flex: 1,
+                child: AutoSizeText(
+                  "OR",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                  minFontSize: 10,
+                ),
               ),
-            ),
-            SizedBox(height: height1 * 0.020),
-            Flexible(child: qrButton, flex: 2)
-          ],
+              SizedBox(height: height1 * 0.020),
+              Flexible(child: qrButton, flex: 2)
+            ],
+          ),
         ),
       ),
     );

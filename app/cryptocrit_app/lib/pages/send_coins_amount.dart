@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eosdart_ecc/eosdart_ecc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,6 +47,66 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
 
   @override
   Widget build(BuildContext context) {
+    final _platformDialogA = AlertDialog(
+      backgroundColor: Colors.black,
+      title: Text("SUBMIT TRANSACTION"),
+      content: Text("Are you sure to submit ?"),
+      contentTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+      ),
+      titleTextStyle: TextStyle(
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      actions: [
+        FlatButton(
+          onPressed: () {},
+          child: Text(
+            "Yes",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "No",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ))
+      ],
+    );
+
+    final _platformDialogC = CupertinoAlertDialog(
+      title: new Text(
+        "SUBMIT TRANSACTION",
+        style: TextStyle(fontSize: 20),
+      ),
+      content: new Text(
+        "Are you sure to submit ?",
+        style: TextStyle(
+          fontSize: 18,
+        ),
+      ),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          child: Text("Yes"),
+        ),
+        CupertinoDialogAction(
+          child: Text("No"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
+
     final transactCoins = TextField(
       controller: trController,
       keyboardType: TextInputType.number,
@@ -192,6 +254,13 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
                             ))
                       ],
                     );
+
+                    if (Platform.isAndroid) {
+                      return _platformDialogA;
+                    } else if (Platform.isIOS) {
+                      return _platformDialogC;
+                    }
+
                   });
             },
             child: AutoSizeText(
