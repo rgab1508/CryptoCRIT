@@ -28,6 +28,7 @@
     "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
     "elliptic": "^6.5.3",
+    "eosjs-ecc": "^4.0.7",
     "express": "^4.17.1",
     "firebase-admin": "^9.4.2",
     "nodemailer": "^6.4.17"

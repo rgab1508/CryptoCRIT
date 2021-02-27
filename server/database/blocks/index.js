@@ -47,12 +47,30 @@ class Blocks {
      var balance = 0;
      var blockchain = await Blocks.getBlockchain();
      for (var block of blockchain) {
-     	console.log(block);
        if (!block.data) continue;
        if (block.data.from_address == public_key) balance -= block.data.amount;
        if (block.data.to_address == public_key) balance += block.data.amount;
      }
      return balance;
+   }
+
+   static async getHistoryFromAddress(public_key) {
+     var history = [];
+     var blockchain = await Blocks.getBlockchain();
+     for (var block of blockchain) {
+       if (!block.data) continue;
+       if (block.data.from_address == public_key) {
+         var { to_address, amount, timestamp } = block.data;
+         var type = "send";
+         history.push({ type, to_address, amount, timestamp });
+       }
+       if (block.data.to_address == public_key)  {
+         var { from_address, amount, timestamp } = block.data;
+         var type = "receive";
+         history.push({ type, from_address, amount, timestamp });
+       }
+     }
+     return history;
    }
 }
 
