@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +50,18 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
       });
       pref.setString('public_key', publicKey.toString());
       pref.setString('private_key', privateKey.toString());
-      final dialog = AlertDialog(
-        backgroundColor: Colors.grey[800],
-        title: Text("Copy this or Write it down"),
-        content: Text(mnemonics),
+      final dialogAndroid = AlertDialog(
+        backgroundColor: Colors.black,
+        title: Text(
+          "Copy, write or screenshot",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        content: Text(
+          mnemonics,
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           FlatButton(
             child: Text("Copy"),
@@ -69,12 +78,38 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
         ],
       );
 
+      final dialogIos = CupertinoAlertDialog(
+        title: Text("Copy, write or Screenshot"),
+        content: Text(
+          privateKey.toString(),
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          CupertinoDialogAction(
+            child: Text("COPY"),
+            onPressed: () {
+              Clipboard.setData(new ClipboardData(text: privateKey.toString()));
+            },
+          ),
+          CupertinoDialogAction(
+            child: Text("DONE"),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+          )
+        ],
+      );
+
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return Expanded(
-              child: dialog,
-            );
+            if (Platform.isAndroid) {
+              return Expanded(
+                child: dialogAndroid,
+              );
+            } else if (Platform.isIOS) {
+              return Expanded(child: dialogIos);
+            }
           });
     }
   }
@@ -86,7 +121,6 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
       getKeys();
     });
 
-    //@TODO create public and private keys
   }
 
   @override

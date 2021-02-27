@@ -35,6 +35,7 @@ class _HomeTransactionState extends State<HomeTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    getBalance();
     return Scaffold(
         backgroundColor: Colors.black,
         body: Column(
