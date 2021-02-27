@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:eosdart_ecc/eosdart_ecc.dart';
-import 'package:bip39/bip39.dart' as bip39;
+import 'package:cryptocrit_app/utils/rip39.dart' as rip39;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:convert/convert.dart';
@@ -21,9 +21,8 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
     var privateKey = EOSPrivateKey.fromRandom();
     var publicKey = privateKey.toEOSPublicKey();
     print(privateKey.toString());
-    // final mneonics =
-    //     bip39.entropyToMnemonic(hex.encode(utf8.encode(privateKey.toString())));
-    // print(mneonics);
+    final mnemonics =
+        rip39.entropyToMnemonic(hex.encode(utf8.encode(privateKey.toString())));
 
     //Showing dialog of the mneonics
 
@@ -53,12 +52,12 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
       final dialog = AlertDialog(
         backgroundColor: Colors.grey[800],
         title: Text("Copy this or Write it down"),
-        content: Text(privateKey.toString()),
+        content: Text(mnemonics),
         actions: [
           FlatButton(
             child: Text("Copy"),
             onPressed: () {
-              Clipboard.setData(new ClipboardData(text: privateKey.toString()));
+              Clipboard.setData(new ClipboardData(text: mnemonics));
             },
           ),
           FlatButton(

@@ -167,18 +167,6 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
                       actions: [
                         FlatButton(
                           onPressed: () async {
-                            // var pk = PrivateKey.fromHex(privateKey);
-
-                            // var timestamp =
-                            //     DateTime.now().millisecondsSinceEpoch;
-                            // final message = utf8.encode(timestamp
-                            //     .toString()); //+recipientPublicKey.toString() +coins);
-                            // print(message);
-                            // final hash = await cg.sha256.hash(message);
-                            // print(hex.encode(hash.bytes));
-                            // var signature =
-                            //     pk.signature(hex.encode(hash.bytes));
-                            // print(signature);
                             EOSPrivateKey pk =
                                 EOSPrivateKey.fromString(privateKey);
 
@@ -260,7 +248,6 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
                     } else if (Platform.isIOS) {
                       return _platformDialogC;
                     }
-
                   });
             },
             child: AutoSizeText(
