@@ -59,7 +59,57 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
           color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
       actions: [
         FlatButton(
-          onPressed: () {},
+          onPressed: () async {
+            EOSPrivateKey pk = EOSPrivateKey.fromString(privateKey);
+
+            var timestamp = DateTime.now().millisecondsSinceEpoch;
+
+            String data =
+                timestamp.toString() + recipientPublicKey.toString() + coins;
+            final message = utf8.encode(data);
+
+            final hash = await cg.sha256.hash(message);
+
+            EOSSignature signature = pk.signString(hex.encode(hash.bytes));
+
+            var transaction = Transaction(
+                fromAddress: publicKey,
+                toAddress: recipientPublicKey,
+                amount: int.parse(coins),
+                timestamp: timestamp,
+                signature: signature.toString());
+
+            Map body = <String, String>{
+              'token': token,
+              'timestamp': transaction.timestamp.toString(),
+              'to_address': transaction.toAddress,
+              'amount': transaction.amount.toString(),
+              'signature': transaction.signature
+            };
+            print(body);
+            final res =
+                await http.post('https://cryptocrit.herokuapp.com/transaction',
+                    headers: <String, String>{
+                      'Content-Type': 'application/json; charset=UTF-8',
+                    },
+                    body: jsonEncode(body));
+            if (res.statusCode != 200) {
+              print(res.body);
+              unscStatusAndroid(context);
+              // final sb = SnackBar(
+              //   content: Text(res.body),
+              // );
+              // Scaffold.of(context).showSnackBar(sb);
+            } else {
+              print("going");
+              // final sb = SnackBar(
+              //   content: Text("Transaction in process"),
+              // );
+              // Scaffold.of(context).showSnackBar(sb);
+              Navigator.pop(context);
+              transStatusAndroid(context);
+            }
+          },
           child: Text(
             "Yes",
             style: TextStyle(
@@ -97,6 +147,61 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
         CupertinoDialogAction(
           isDefaultAction: true,
           child: Text("Yes"),
+          onPressed: () async {
+            EOSPrivateKey pk = EOSPrivateKey.fromString(privateKey);
+            var timestamp = DateTime.now().millisecondsSinceEpoch;
+
+            String data =
+                timestamp.toString() + recipientPublicKey.toString() + coins;
+            final message = utf8.encode(data);
+
+            final hash = await cg.sha256.hash(message);
+
+            EOSSignature signature = pk.signString(hex.encode(hash.bytes));
+
+            var transaction = Transaction(
+                fromAddress: publicKey,
+                toAddress: recipientPublicKey,
+                amount: int.parse(coins),
+                timestamp: timestamp,
+                signature: signature.toString());
+
+            Map body = <String, String>{
+              'token': token,
+              'timestamp': transaction.timestamp.toString(),
+              'to_address': transaction.toAddress,
+              'amount': transaction.amount.toString(),
+              'signature': transaction.signature
+            };
+            Navigator.pop(context);
+            waitTrans(context);
+            print(body);
+            Navigator.pop(context);
+            waitTrans(context);
+            final res =
+                await http.post('https://cryptocrit.herokuapp.com/transaction',
+                    headers: <String, String>{
+                      'Content-Type': 'application/json; charset=UTF-8',
+                    },
+                    body: jsonEncode(body));
+            if (res.statusCode != 200) {
+              Navigator.pop(context);
+              unscStatusIos(context);
+              print(res.body);
+              // final sb = SnackBar(
+              //   content: Text(res.body),
+              // );
+              // Scaffold.of(context).showSnackBar(sb);
+            } else {
+              print("going");
+              // final sb = SnackBar(
+              //   content: Text("Transaction in process"),
+              // );
+              // Scaffold.of(context).showSnackBar(sb);
+              Navigator.pop(context);
+              transStatusIos(context);
+            }
+          },
         ),
         CupertinoDialogAction(
           child: Text("No"),
@@ -110,7 +215,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
     final transactCoins = TextField(
       controller: trController,
       keyboardType: TextInputType.number,
-      autofocus: true,
+      autofocus: false,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
       ],
@@ -152,116 +257,13 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      backgroundColor: Colors.black,
-                      title: Text("SUBMIT TRANSACTION"),
-                      content: Text("Are you sure to submit ?"),
-                      contentTextStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                      titleTextStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                      actions: [
-                        FlatButton(
-                          onPressed: () async {
-                            // var pk = PrivateKey.fromHex(privateKey);
-
-                            // var timestamp =
-                            //     DateTime.now().millisecondsSinceEpoch;
-                            // final message = utf8.encode(timestamp
-                            //     .toString()); //+recipientPublicKey.toString() +coins);
-                            // print(message);
-                            // final hash = await cg.sha256.hash(message);
-                            // print(hex.encode(hash.bytes));
-                            // var signature =
-                            //     pk.signature(hex.encode(hash.bytes));
-                            // print(signature);
-                            EOSPrivateKey pk =
-                                EOSPrivateKey.fromString(privateKey);
-
-                            var timestamp =
-                                DateTime.now().millisecondsSinceEpoch;
-
-                            String data = timestamp.toString() +
-                                recipientPublicKey.toString() +
-                                coins;
-                            final message = utf8.encode(data);
-
-                            final hash = await cg.sha256.hash(message);
-
-                            EOSSignature signature =
-                                pk.signString(hex.encode(hash.bytes));
-
-                            var transaction = Transaction(
-                                fromAddress: publicKey,
-                                toAddress: recipientPublicKey,
-                                amount: int.parse(coins),
-                                timestamp: timestamp,
-                                signature: signature.toString());
-
-                            Map body = <String, String>{
-                              'token': token,
-                              'timestamp': transaction.timestamp.toString(),
-                              'to_address': transaction.toAddress,
-                              'amount': transaction.amount.toString(),
-                              'signature': transaction.signature
-                            };
-                            print(body);
-                            final res = await http.post(
-                                'https://cryptocrit.herokuapp.com/transaction',
-                                headers: <String, String>{
-                                  'Content-Type':
-                                      'application/json; charset=UTF-8',
-                                },
-                                body: jsonEncode(body));
-                            if (res.statusCode != 200) {
-                              print(res.body);
-                              // final sb = SnackBar(
-                              //   content: Text(res.body),
-                              // );
-                              // Scaffold.of(context).showSnackBar(sb);
-                            } else {
-                              print("going");
-                              // final sb = SnackBar(
-                              //   content: Text("Transaction in process"),
-                              // );
-                              // Scaffold.of(context).showSnackBar(sb);
-                              Navigator.pushReplacementNamed(context,
-                                  '/home'); //TODO decide where to navigatee next
-                            }
-                          },
-                          child: Text(
-                            "Yes",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(
-                              "No",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ))
-                      ],
-                    );
-
                     if (Platform.isAndroid) {
                       return _platformDialogA;
                     } else if (Platform.isIOS) {
                       return _platformDialogC;
                     }
-
                   });
+              SystemChannels.textInput.invokeMethod('TextInput.hide');
             },
             child: AutoSizeText(
               "Submit",
@@ -318,4 +320,101 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
       ),
     );
   }
+}
+
+void transStatusAndroid(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            backgroundColor: Colors.black,
+            title: Text(
+              "SUCCESS",
+              style: TextStyle(color: Colors.white),
+            ),
+            content: Text("Your transaction has been successful"),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, '/home');
+                  },
+                  child: Text("Done"))
+            ],
+          ));
+}
+
+void transStatusIos(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+            title: Text("Success"),
+            content: Text("Your transaction has been successful"),
+            actions: [
+              CupertinoDialogAction(
+                child: Text("Okay"),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, '/home');
+                },
+              )
+            ],
+          ));
+}
+
+void waitTrans(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text("PROCESSING TRANSACTION"),
+            content: Text("Your transaction is being processed. Please wait"),
+          ));
+}
+
+void unscStatusIos(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+            title: Text("ERROR"),
+            content:
+                Text("Your transaction has been unsuccessful. Try again later"),
+            actions: [
+              CupertinoDialogAction(
+                child: Text("Okay"),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, '/home');
+                },
+              )
+            ],
+          ));
+}
+
+void unscStatusAndroid(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            backgroundColor: Colors.black,
+            title: Text(
+              "ERROR",
+              style: TextStyle(color: Colors.white),
+            ),
+            content:
+                Text("Your transaction has been unsuccessful. Try again later"),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, '/home');
+                  },
+                  child: Text("Done"))
+            ],
+          ));
 }
