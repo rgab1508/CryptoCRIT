@@ -1,6 +1,7 @@
 const SHA256 = require("crypto-js/sha256");
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
+const ecc = require('eosjs-ecc');
 
 class Exception {
   constructor(code,message) {
@@ -24,9 +25,13 @@ class Transaction {
   }
 
   isValid() {
-    var publicKey = ec.keyFromPublic(this.from_address,'hex');
-    if (!publicKey.verify(this.calculateHash(),this.signature)) throw new Exception(401,"Invalid Signature");
-    if (!Number.isInteger(this.amount)) throw new Exception(400,"Amount should be an Integer");
+  	try {
+  	  if (!ecc.verify(this.signature,this.calculateHash(),this.from_address)) throw new Exception(401,"Invalid Signature");
+  	  if (!Number.isInteger(this.amount)) throw new Exception(400,"Amount should be an Integer");
+  	}
+  	catch (e) {
+  	  throw new Exception(401,"Invalid Signature");
+  	}
   }
 }
 
