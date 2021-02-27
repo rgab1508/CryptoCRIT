@@ -1,8 +1,18 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:eosdart_ecc/eosdart_ecc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:cryptography/cryptography.dart' as cg;
+import 'package:eosdart_ecc/eosdart_ecc.dart';
+import 'package:convert/convert.dart';
+
+import 'package:cryptocrit_app/models/transaction_model.dart';
 
 class SendAmountTransactions extends StatefulWidget {
   @override
@@ -11,17 +21,25 @@ class SendAmountTransactions extends StatefulWidget {
 
 class _SendAmountTransactionsState extends State<SendAmountTransactions> {
   final trController = TextEditingController();
+  var token;
   var rollNo;
+  var privateKey;
   var publicKey;
+  var recipientPublicKey;
   String coins;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
+    Future.delayed(Duration.zero, () async {
       final data = jsonDecode(ModalRoute.of(context).settings.arguments);
       rollNo = data['roll_no'];
-      publicKey = data['public_key'];
+      recipientPublicKey = data['public_key'];
+      final pref = await SharedPreferences.getInstance();
+      print(pref.getKeys());
+      token = pref.getString('token');
+      publicKey = pref.getString('public_key');
+      privateKey = pref.getString('private_key');
     });
   }
 
@@ -86,7 +104,73 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
                           fontSize: 20),
                       actions: [
                         FlatButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            // var pk = PrivateKey.fromHex(privateKey);
+
+                            // var timestamp =
+                            //     DateTime.now().millisecondsSinceEpoch;
+                            // final message = utf8.encode(timestamp
+                            //     .toString()); //+recipientPublicKey.toString() +coins);
+                            // print(message);
+                            // final hash = await cg.sha256.hash(message);
+                            // print(hex.encode(hash.bytes));
+                            // var signature =
+                            //     pk.signature(hex.encode(hash.bytes));
+                            // print(signature);
+                            EOSPrivateKey pk =
+                                EOSPrivateKey.fromString(privateKey);
+
+                            var timestamp =
+                                DateTime.now().millisecondsSinceEpoch;
+
+                            String data = timestamp.toString() +
+                                recipientPublicKey.toString() +
+                                coins;
+                            final message = utf8.encode(data);
+
+                            final hash = await cg.sha256.hash(message);
+
+                            EOSSignature signature =
+                                pk.signString(hex.encode(hash.bytes));
+
+                            var transaction = Transaction(
+                                fromAddress: publicKey,
+                                toAddress: recipientPublicKey,
+                                amount: int.parse(coins),
+                                timestamp: timestamp,
+                                signature: signature.toString());
+
+                            Map body = <String, String>{
+                              'token': token,
+                              'timestamp': transaction.timestamp.toString(),
+                              'to_address': transaction.toAddress,
+                              'amount': transaction.amount.toString(),
+                              'signature': transaction.signature
+                            };
+                            print(body);
+                            final res = await http.post(
+                                'https://cryptocrit.herokuapp.com/transaction',
+                                headers: <String, String>{
+                                  'Content-Type':
+                                      'application/json; charset=UTF-8',
+                                },
+                                body: jsonEncode(body));
+                            if (res.statusCode != 200) {
+                              print(res.body);
+                              // final sb = SnackBar(
+                              //   content: Text(res.body),
+                              // );
+                              // Scaffold.of(context).showSnackBar(sb);
+                            } else {
+                              print("going");
+                              // final sb = SnackBar(
+                              //   content: Text("Transaction in process"),
+                              // );
+                              // Scaffold.of(context).showSnackBar(sb);
+                              Navigator.pushReplacementNamed(context,
+                                  '/home'); //TODO decide where to navigatee next
+                            }
+                          },
                           child: Text(
                             "Yes",
                             style: TextStyle(

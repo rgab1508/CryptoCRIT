@@ -24,7 +24,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-
     final rollField = TextField(
       autofocus: true,
       controller: myController,
@@ -42,17 +41,11 @@ class _LoginState extends State<Login> {
           hintStyle: TextStyle(
             color: Colors.grey[400],
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32)
-          ),
+          enabledBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32)),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.0),
-            borderSide: BorderSide(
-              color: Color(0xff7e57c2),
-              width: 3
-            )
-
-          )),
+              borderRadius: BorderRadius.circular(32.0),
+              borderSide: BorderSide(color: Color(0xff7e57c2), width: 3))),
     );
 
     final submitButton = Material(
@@ -69,7 +62,7 @@ class _LoginState extends State<Login> {
               setState(() {
                 _loadingButton = true;
               });
-              if (rollNo.length != 7) {
+              if (rollNo.length < 5) {
                 var sb = SnackBar(
                   content: Text("Enter a vaild Roll No."),
                 );

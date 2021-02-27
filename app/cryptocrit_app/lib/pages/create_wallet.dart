@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:secp256k1/secp256k1.dart';
+import 'package:eosdart_ecc/eosdart_ecc.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:convert/convert.dart';
 
 class CreateWalletPage extends StatefulWidget {
   @override
@@ -17,9 +18,12 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
   bool _loading = true;
 
   Future<void> getKeys() async {
-    var privateKey = PrivateKey.generate();
-    var publicKey = privateKey.publicKey.toHex();
-    final mneonics = bip39.entropyToMnemonic(privateKey.toHex());
+    var privateKey = EOSPrivateKey.fromRandom();
+    var publicKey = privateKey.toEOSPublicKey();
+    print(privateKey.toString());
+    // final mneonics =
+    //     bip39.entropyToMnemonic(hex.encode(utf8.encode(privateKey.toString())));
+    // print(mneonics);
 
     //Showing dialog of the mneonics
 
@@ -30,28 +34,31 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(
-            <String, String>{'token': token, 'public_key': publicKey}));
+        body: jsonEncode(<String, String>{
+          'token': token,
+          'public_key': publicKey.toString()
+        }));
     if (res.statusCode != 200) {
-      var sb = SnackBar(
-        content: Text(res.body),
-      );
-      Scaffold.of(context).showSnackBar(sb);
+      // var sb = SnackBar(
+      //   content: Text(res.body),
+      // );
+      // Scaffold.of(context).showSnackBar(sb);
+      print(res.body);
     } else {
       setState(() {
         _loading = false;
       });
-      pref.setString('public_key', publicKey);
-      pref.setString('private_key', privateKey.toHex());
+      pref.setString('public_key', publicKey.toString());
+      pref.setString('private_key', privateKey.toString());
       final dialog = AlertDialog(
         backgroundColor: Colors.grey[800],
         title: Text("Copy this or Write it down"),
-        content: Text(mneonics),
+        content: Text(privateKey.toString()),
         actions: [
           FlatButton(
             child: Text("Copy"),
             onPressed: () {
-              Clipboard.setData(new ClipboardData(text: mneonics));
+              Clipboard.setData(new ClipboardData(text: privateKey.toString()));
             },
           ),
           FlatButton(
