@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:secp256k1/secp256k1.dart';
+import 'package:eosdart_ecc/eosdart_ecc.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:http/http.dart' as http;
 
@@ -32,23 +32,23 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
         fontWeight: FontWeight.bold,
       ),
       decoration: InputDecoration(
-          fillColor: Colors.grey[850],
-          filled: true,
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: 'squirrel course desert damage .......',
-          hintStyle: TextStyle(
-            color: Colors.grey[400],
+        fillColor: Colors.grey[850],
+        filled: true,
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: 'Enter the Private key',
+        hintStyle: TextStyle(
+          color: Colors.grey[400],
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: Color(0xff7e57c2),
+            width: 03,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(
-              color: Color(0xff7e57c2),
-              width: 03,
-            ),
-          ),
+        ),
       ),
     );
 
@@ -72,23 +72,24 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                       );
                       Scaffold.of(context).showSnackBar(sb);
                     }
-                    var pk;
+                    var pk = pwd.trim();
                     var valid = true;
-                    try {
-                      pk = bip39.mnemonicToEntropy(pwd.trim());
-                    } catch (e) {
-                      valid = false;
-                      setState(() {
-                        _loadingButton = false;
-                      });
-                      final sb = SnackBar(
-                        content: Text('Password Invalid.(try again)'),
-                      );
-                      Scaffold.of(context).showSnackBar(sb);
-                    }
+                    // try {
+                    //   pk = bip39.mnemonicToEntropy(pwd.trim());
+                    // } catch (e) {
+                    //   valid = false;
+                    //   setState(() {
+                    //     _loadingButton = false;
+                    //   });
+                    //   final sb = SnackBar(
+                    //     content: Text('Password Invalid.(try again)'),
+                    //   );
+                    //   Scaffold.of(context).showSnackBar(sb);
+                    // }
                     if (valid) {
-                      var privateKey = PrivateKey.fromHex(pk);
-                      var publicKey = privateKey.publicKey.toHex();
+                      print(pk);
+                      var privateKey = EOSPrivateKey.fromString(pk);
+                      var publicKey = privateKey.toEOSPublicKey();
                       final pref = await SharedPreferences.getInstance();
                       var rollNo = pref.getString('roll_no');
                       final res = await http.get(
@@ -107,12 +108,12 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                             jsonDecode(res.body)['public_key'];
                         print(registeredPublickey);
                         print(publicKey);
-                        if (registeredPublickey == publicKey) {
+                        if (registeredPublickey == publicKey.toString()) {
                           final sb = SnackBar(
                             content: Text('Logged In Successfully'),
                           );
                           Scaffold.of(context).showSnackBar(sb);
-                          pref.setString('private_key', privateKey.toHex());
+                          pref.setString('private_key', privateKey.toString());
                           pref.setString('public_key', publicKey.toString());
                           Navigator.pushReplacementNamed(context, '/home');
                         } else {
@@ -151,7 +152,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
           children: [
             Text(
               "Enter PassPhrase",
-              style: TextStyle(color: Colors.white, fontSize:35),
+              style: TextStyle(color: Colors.white, fontSize: 35),
             ),
             SizedBox(
               height: 20,

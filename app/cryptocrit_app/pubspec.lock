@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.0"
+  asn1lib:
+    dependency: transitive
+    description:
+      name: asn1lib
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.5"
   async:
     dependency: transitive
     description:
@@ -35,14 +42,14 @@ packages:
       name: basic_utils
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.7.1"
+    version: "2.6.3"
   bip39:
     dependency: "direct main"
     description:
       name: bip39
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -50,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.1"
+  bs58check:
+    dependency: transitive
+    description:
+      name: bs58check
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   characters:
     dependency: transitive
     description:
@@ -127,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.8"
+  eosdart_ecc:
+    dependency: "direct main"
+    description:
+      name: eosdart_ecc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3"
   fake_async:
     dependency: transitive
     description:
@@ -293,7 +314,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.1"
+    version: "3.0.1"
   logging:
     dependency: transitive
     description:
@@ -384,7 +405,7 @@ packages:
       name: pointycastle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "1.0.2"
   process:
     dependency: transitive
     description:
@@ -420,13 +441,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-  secp256k1:
-    dependency: "direct main"
-    description:
-      name: secp256k1
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
   shared_preferences:
     dependency: "direct main"
     description:

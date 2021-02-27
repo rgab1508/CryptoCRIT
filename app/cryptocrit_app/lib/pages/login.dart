@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
               setState(() {
                 _loadingButton = true;
               });
-              if (rollNo.length != 7) {
+              if (rollNo.length < 5) {
                 var sb = SnackBar(
                   content: Text("Enter a vaild Roll No."),
                 );
