@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:eosdart_ecc/eosdart_ecc.dart';
-import 'package:bip39/bip39.dart' as bip39;
+import 'package:cryptocrit_app/utils/rip39.dart' as rip39;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:convert/convert.dart';
@@ -21,9 +22,8 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
     var privateKey = EOSPrivateKey.fromRandom();
     var publicKey = privateKey.toEOSPublicKey();
     print(privateKey.toString());
-    // final mneonics =
-    //     bip39.entropyToMnemonic(hex.encode(utf8.encode(privateKey.toString())));
-    // print(mneonics);
+    final mnemonics =
+        rip39.entropyToMnemonic(hex.encode(utf8.encode(privateKey.toString())));
 
     //Showing dialog of the mneonics
 
@@ -50,15 +50,23 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
       });
       pref.setString('public_key', publicKey.toString());
       pref.setString('private_key', privateKey.toString());
-      final dialog = AlertDialog(
-        backgroundColor: Colors.grey[800],
-        title: Text("Copy this or Write it down"),
-        content: Text(privateKey.toString()),
+      final dialogAndroid = AlertDialog(
+        backgroundColor: Colors.black,
+        title: Text(
+          "Copy, write or screenshot",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        content: Text(
+          mnemonics,
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           FlatButton(
             child: Text("Copy"),
             onPressed: () {
-              Clipboard.setData(new ClipboardData(text: privateKey.toString()));
+              Clipboard.setData(new ClipboardData(text: mnemonics));
             },
           ),
           FlatButton(
@@ -70,12 +78,38 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
         ],
       );
 
+      final dialogIos = CupertinoAlertDialog(
+        title: Text("Copy, write or Screenshot"),
+        content: Text(
+          privateKey.toString(),
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          CupertinoDialogAction(
+            child: Text("COPY"),
+            onPressed: () {
+              Clipboard.setData(new ClipboardData(text: privateKey.toString()));
+            },
+          ),
+          CupertinoDialogAction(
+            child: Text("DONE"),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+          )
+        ],
+      );
+
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return Expanded(
-              child: dialog,
-            );
+            if (Platform.isAndroid) {
+              return Expanded(
+                child: dialogAndroid,
+              );
+            } else if (Platform.isIOS) {
+              return Expanded(child: dialogIos);
+            }
           });
     }
   }
@@ -87,7 +121,6 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
       getKeys();
     });
 
-    //@TODO create public and private keys
   }
 
   @override

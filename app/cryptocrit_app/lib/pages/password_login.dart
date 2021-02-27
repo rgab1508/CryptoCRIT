@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:eosdart_ecc/eosdart_ecc.dart';
-import 'package:bip39/bip39.dart' as bip39;
+import 'package:cryptocrit_app/utils/rip39.dart' as rip39;
 import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,7 +35,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
         fillColor: Colors.grey[850],
         filled: true,
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: 'Enter the Private key',
+        hintText: 'Enter the pass phrase',
         hintStyle: TextStyle(
           color: Colors.grey[400],
         ),
@@ -72,20 +72,20 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                       );
                       Scaffold.of(context).showSnackBar(sb);
                     }
-                    var pk = pwd.trim();
+                    var pk;
                     var valid = true;
-                    // try {
-                    //   pk = bip39.mnemonicToEntropy(pwd.trim());
-                    // } catch (e) {
-                    //   valid = false;
-                    //   setState(() {
-                    //     _loadingButton = false;
-                    //   });
-                    //   final sb = SnackBar(
-                    //     content: Text('Password Invalid.(try again)'),
-                    //   );
-                    //   Scaffold.of(context).showSnackBar(sb);
-                    // }
+                    try {
+                      pk = rip39.mnemonicToEntropy(pwd.trim());
+                    } catch (e) {
+                      valid = false;
+                      setState(() {
+                        _loadingButton = false;
+                      });
+                      final sb = SnackBar(
+                        content: Text('Password Invalid.(try again)'),
+                      );
+                      Scaffold.of(context).showSnackBar(sb);
+                    }
                     if (valid) {
                       print(pk);
                       var privateKey = EOSPrivateKey.fromString(pk);
