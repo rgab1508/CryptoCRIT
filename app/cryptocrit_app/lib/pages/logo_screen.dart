@@ -14,7 +14,8 @@ class _LogoScreenState extends State<LogoScreen> {
   Future<void> checkLoggedIn() async {
     final pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
-    if (token != null) {
+    final pk = pref.getString('private_key');
+    if (token != null && pk != null) {
       logged = true;
       await Future.delayed(Duration(seconds: 2));
       Navigator.pushReplacementNamed(context, '/home');
