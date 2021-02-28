@@ -5,6 +5,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser')
 var crypto = require('crypto');
 var bip39 = require('bip39');
+const ecc = require('eosjs-ecc');
 var EC = require('elliptic').ec;
 var ec = new EC('secp256k1');
 
@@ -53,13 +54,15 @@ app.post('/verify', async function(req,res) {
     var student = await OTP.verify(req.body.token,req.body.otp);  // verifies OTP, if unauthorised, throws Exception
     //if (await Student.isNew(student.rollno)) await Student.setKeyPair(student.rollno, keygen.generateKeyPair()); // if student is new, generate keypair for them
     //var keypair = await Student.getKeyPair(student.rollno);
+    var isNew = await Student.isNew(student.rollno);
     var token = crypto.randomBytes(8).toString('hex');
     var session = new Session(token);
     session.set("rollno",student.rollno);
     session.set("type","login");
     await session.create();
     res.json({
-      token: token
+      token: token,
+      isNew: isNew
     });
   }
   catch (e) {
@@ -71,12 +74,8 @@ app.post('/create', async function(req,res) {
   try {
     if (!req.body.token) throw new Exception(400,"parameter missing: token");  // token missing
     if (!req.body.public_key) throw new Exception(400,"parameter missing: public_key"); // public_key missing
-    try {
-      ec.keyFromPublic(req.body.public_key,"hex");
-    }
-    catch (e) {
-      throw new Exception(400,"Invalid Public Key");
-    }
+    await Session.isLoggedIn(req.body.token);
+    if (!ecc.isValidPublic(req.body.public_key)) throw new Exception(400,"Invalid Public Key");
     var student = await Session.get(req.body.token);
     var isNew = await Student.isNew(student.rollno);
     if (!isNew) throw new Exception(400,"User already Exists");
@@ -114,6 +113,31 @@ app.post('/transaction', async function(req,res) {
       timestamp: req.body.timestamp
     });
     res.end("done");
+  }
+  catch (e) {
+    res.status(e.code).end(e.message);
+  }
+});
+
+app.post('/logout', async function(req,res) {
+  try {
+    if (!req.body.token) throw new Exception(400,"parameter missing: token");  // token missing
+    await Session.destroy(req.body.token);
+    res.end("done");
+  }
+  catch (e) {
+    res.status(e.code).end(e.message);
+  }
+});
+
+app.get('/history', async function(req,res) {
+  try {
+    if (!req.query.token) throw new Exception(400,"parameter missing: token");  // token missing
+    await Session.isLoggedIn(req.query.token);
+    var student = await Session.get(req.query.token);
+    var public_key = await Student.getPublicKey(student.rollno);
+    var history = await Blocks.getHistoryFromAddress(public_key);
+    res.json(history);
   }
   catch (e) {
     res.status(e.code).end(e.message);
