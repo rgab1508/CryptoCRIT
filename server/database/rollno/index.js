@@ -59,6 +59,18 @@ class Student {
     if (student.public_key) return false;
     else return true;
   }
+
+  static hideEmail(email) {
+    var user = email.split("@")[0];
+    var host = email.split("@")[1];
+    var userLen = user.length;
+    var userHideLen = Math.ceil(userLen/2);
+    var hostLen = host.length;
+    var hostHideLen = Math.ceil(hostLen/2);
+    var userPad = Math.floor(Math.random()*(userLen-userHideLen));
+    var hostPad = Math.floor(Math.random()*(hostLen-hostHideLen));
+    return user.slice(0,userPad)+"*".repeat(userHideLen)+user.slice(userPad+userHideLen,userLen)+"@"+host.slice(0,hostPad)+"*".repeat(hostHideLen)+host.slice(hostPad+hostHideLen,hostLen); 
+  }
 }
 
 module.exports = Student;
