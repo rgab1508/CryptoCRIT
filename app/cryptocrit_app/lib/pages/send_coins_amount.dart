@@ -86,7 +86,9 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               'amount': transaction.amount.toString(),
               'signature': transaction.signature
             };
+            Navigator.pop(context);
             print(body);
+            waitTrans(context);
             final res =
                 await http.post('https://cryptocrit.herokuapp.com/transaction',
                     headers: <String, String>{
@@ -101,6 +103,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               // );
               // Scaffold.of(context).showSnackBar(sb);
             } else {
+
               print("going");
               // final sb = SnackBar(
               //   content: Text("Transaction in process"),
@@ -176,8 +179,6 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
             Navigator.pop(context);
             waitTrans(context);
             print(body);
-            Navigator.pop(context);
-            waitTrans(context);
             final res =
                 await http.post('https://cryptocrit.herokuapp.com/transaction',
                     headers: <String, String>{
@@ -331,7 +332,10 @@ void transStatusAndroid(BuildContext context) {
               "SUCCESS",
               style: TextStyle(color: Colors.white),
             ),
-            content: Text("Your transaction has been successful"),
+            content: Text(
+                "Your transaction has been successful",
+              style: TextStyle(color: Colors.white),
+            ),
             actions: [
               FlatButton(
                   onPressed: () {
@@ -369,8 +373,9 @@ void waitTrans(BuildContext context) {
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
-            title: Text("PROCESSING TRANSACTION"),
-            content: Text("Your transaction is being processed. Please wait"),
+            backgroundColor: Colors.black,
+            title: Text("PROCESSING TRANSACTION",style: TextStyle(color: Colors.white),),
+            content: Text("Your transaction is being processed. Please wait",style: TextStyle(color: Colors.white),),
           ));
 }
 
@@ -405,7 +410,7 @@ void unscStatusAndroid(BuildContext context) {
               style: TextStyle(color: Colors.white),
             ),
             content:
-                Text("Your transaction has been unsuccessful. Try again later"),
+                Text("Your transaction has been unsuccessful. Try again later",style: TextStyle(color: Colors.white)),
             actions: [
               FlatButton(
                   onPressed: () {
