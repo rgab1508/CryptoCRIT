@@ -22,7 +22,8 @@ class _ProfileState extends State<Profile> {
   Future<void> getInfo() async {
     final pref = await SharedPreferences.getInstance();
     setState(() {
-      rollNo = pref.getString('roll_no');
+      rollNo = pref.getString('roll_no') ?? "";
+      email = pref.getString('email') ?? "";
     });
     final token = pref.getString('token');
     final res =
@@ -31,7 +32,7 @@ class _ProfileState extends State<Profile> {
       print("Something went Wrong......");
     } else {
       setState(() {
-        balance = jsonDecode(res.body)['balance'].toString();
+        balance = jsonDecode(res.body)['balance'].toString() ?? "...";
       });
     }
     print(rollNo);
@@ -62,9 +63,26 @@ class _ProfileState extends State<Profile> {
         FlatButton(
             onPressed: () async {
               final pref = await SharedPreferences.getInstance();
-              await pref.clear();
+              final token = pref.getString('token');
+              final res =
+                  await http.post('https://cryptocrit.herokuapp.com/logout',
+                      headers: <String, String>{
+                        'Content-Type': 'application/json; charset=UTF-8',
+                      },
+                      body: jsonEncode(<String, String>{
+                        'token': token,
+                      }));
+              if (res.statusCode != 200) {
+                final sb = SnackBar(
+                  content: Text('Something went wrong..'),
+                );
+                print(res.body);
+                Scaffold.of(context).showSnackBar(sb);
+              } else {
+                await pref.clear();
+                SystemNavigator.pop();
+              }
               //SystemChannels.platform.invokeMethod('SystemNavigator.pop()');
-              SystemNavigator.pop();
             },
             child: Text(
               "Yes",
@@ -199,7 +217,7 @@ class _ProfileState extends State<Profile> {
                 Flexible(
                   flex: 1,
                   child: AutoSizeText(
-                    "user@mail.com",
+                    email,
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

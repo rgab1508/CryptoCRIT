@@ -37,8 +37,10 @@ app.post('/login', async function(req,res) {
     if (!userExists) throw new Exception(401,"Invalid roll number"); // Invalid roll number
     var otp = new OTP(rollno);
     var token = await otp.send();
+    var email = await Student.getEmailFromRollNumber(rollno);
     res.json({
-      token: token
+      token: token,
+      email: Student.hideEmail(email)
     });
   }
   catch (e) {
@@ -92,6 +94,7 @@ app.post('/transaction', async function(req,res) {
     if (!req.body.token) throw new Exception(400,"parameter missing: token");  // token missing
     if (!req.body.timestamp)  throw new Exception(400,"parameter missing: timestamp");  // timestamp missing
     if (!req.body.to_address)  throw new Exception(400,"parameter missing: to_address");  // to_address missing
+    if (!req.body.roll_no)  throw new Exception(400,"parameter missing: roll_no");  //roll_no missing
     if (!req.body.amount) throw new Exception(400,"parameter missing: amount"); // amount missing
     if (!req.body.signature) throw new Exception(400,"parameter missing: signature"); // signature missing
     await Session.isLoggedIn(req.body.token);
@@ -99,6 +102,8 @@ app.post('/transaction', async function(req,res) {
     if (amount < 0) throw new Exception(400,"Amount must be positive");
     var student = await Session.get(req.body.token);
     var from_address = await Student.getPublicKey(student.rollno);
+    var linked_to_address = await Student.getPublicKey(req.body.roll_no);
+    if (linked_to_address != to_address) throw new Exception(400,"Roll Number Doesn't Match Public Key");
     var transaction = new Transaction(req.body.timestamp ,from_address, req.body.to_address, amount, req.body.signature);
     transaction.isValid();  // TODO work on this function
     if (student.rollno != "admin") {
@@ -106,7 +111,9 @@ app.post('/transaction', async function(req,res) {
       if (amount > balance) throw new Exception(401,"Transaction amount greater than balance"); // amount greater than balance
     }
     await Blocks.add({
+      from_roll_no: student.rollno,
       from_address: from_address,
+      to_roll_no: req.body.roll_no,
       to_address: req.body.to_address,
       amount: amount,
       signature: req.body.signature,

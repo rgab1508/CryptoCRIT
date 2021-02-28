@@ -29,6 +29,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
   var publicKey;
   var recipientPublicKey;
   String coins;
+  var fromHistory;
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
       final data = jsonDecode(ModalRoute.of(context).settings.arguments);
       rollNo = data['roll_no'];
       recipientPublicKey = data['public_key'];
+      fromHistory = data['from_history'];
       final pref = await SharedPreferences.getInstance();
       print(pref.getKeys());
       token = pref.getString('token');
@@ -82,6 +84,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
             Map body = <String, String>{
               'token': token,
               'timestamp': transaction.timestamp.toString(),
+              'roll_no': rollNo,
               'to_address': transaction.toAddress,
               'amount': transaction.amount.toString(),
               'signature': transaction.signature
@@ -172,6 +175,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               'token': token,
               'timestamp': transaction.timestamp.toString(),
               'to_address': transaction.toAddress,
+              'roll_no': rollNo,
               'amount': transaction.amount.toString(),
               'signature': transaction.signature
             };

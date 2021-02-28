@@ -30,11 +30,11 @@ class Blocks {
           hash: block.hash,
           nonce: block.nonce,
           difficulty: block.difficulty
-        }
-        return blockchain;
-   	 })
-   	 return true;
-   }
+      }
+      return blockchain;
+   	})
+   	return true;
+  }
 
    static async getBlockchain() {
      var block_root = "cryptocrit/blockchain";
@@ -60,12 +60,12 @@ class Blocks {
      for (var block of blockchain) {
        if (!block.data) continue;
        if (block.data.from_address == public_key) {
-         var { to_address, amount, timestamp } = block.data;
+         var { to_roll_no, to_address, amount, timestamp } = block.data;
          var type = "send";
          history.push({ type, to_address, amount, timestamp });
        }
        if (block.data.to_address == public_key)  {
-         var { from_address, amount, timestamp } = block.data;
+         var { from_roll_no, from_address, amount, timestamp } = block.data;
          var type = "receive";
          history.push({ type, from_address, amount, timestamp });
        }

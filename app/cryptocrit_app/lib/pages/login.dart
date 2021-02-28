@@ -91,10 +91,15 @@ class _LoginState extends State<Login> {
                   );
                   Scaffold.of(context).showSnackBar(sb);
                 } else {
-                  final token = jsonDecode(res.body)['token'];
+                  final data = jsonDecode(res.body);
+                  final token = data['token'];
+                  final email = data['email'];
                   Navigator.pushReplacementNamed(context, '/otp_verify',
-                      arguments: jsonEncode(
-                          <String, String>{'token': token, 'rollNo': rollNo}));
+                      arguments: jsonEncode(<String, String>{
+                        'token': token,
+                        'rollNo': rollNo,
+                        'email': email
+                      }));
                 }
               }
               //Navigator.pushReplacementNamed(context, '/home');
