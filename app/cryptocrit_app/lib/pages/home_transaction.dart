@@ -21,9 +21,11 @@ class _HomeTransactionState extends State<HomeTransaction> {
     if (res.statusCode != 200) {
       print("Something went Wrong......");
     } else {
-      setState(() {
-        balance = jsonDecode(res.body)['balance'].toString();
-      });
+      if (this.mounted) {
+        setState(() {
+          balance = jsonDecode(res.body)['balance'].toString();
+        });
+      }
     }
   }
 

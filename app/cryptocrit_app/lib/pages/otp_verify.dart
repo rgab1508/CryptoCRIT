@@ -16,6 +16,8 @@ class OTPVerifyPage extends StatefulWidget {
 class _OTPverifyPageState extends State<OTPVerifyPage> {
   bool _loadingButton = false;
   var rollNo;
+  var email;
+
   @override
   Widget build(BuildContext context) {
     final otpTextController = TextEditingController();
@@ -45,13 +47,11 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
             borderRadius: BorderRadius.circular(32.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.0),
-            borderSide: BorderSide(
-              color: Color(0xff7e57c2),
-              width: 03,
-            )
-          )
-      ),
+              borderRadius: BorderRadius.circular(32.0),
+              borderSide: BorderSide(
+                color: Color(0xff7e57c2),
+                width: 03,
+              ))),
     );
 
     final submitButton = Material(
@@ -73,6 +73,7 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
             final data = jsonDecode(ModalRoute.of(context).settings.arguments);
             final token = data['token'];
             rollNo = data['rollNo'];
+            email = data['email'];
 
             final res = await http.post(url,
                 headers: <String, String>{
@@ -95,6 +96,7 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
               final pref = await SharedPreferences.getInstance();
               pref.setString('token', finalToken.toString());
               pref.setString('roll_no', rollNo.toString());
+              pref.setString('email', email);
               if (isNew) {
                 Navigator.pushNamed(context, '/create_wallet');
               } else {
