@@ -88,7 +88,7 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
           CupertinoDialogAction(
             child: Text("COPY"),
             onPressed: () {
-              Clipboard.setData(new ClipboardData(text: privateKey.toString()));
+              Clipboard.setData(new ClipboardData(text: mnemonics));
             },
           ),
           CupertinoDialogAction(
@@ -120,7 +120,6 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
     Future.delayed(Duration.zero, () {
       getKeys();
     });
-
   }
 
   @override
