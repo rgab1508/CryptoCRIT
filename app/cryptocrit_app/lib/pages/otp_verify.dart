@@ -152,11 +152,11 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
               SizedBox(
                 height: 45,
               ),
-              otpTextBox,
+              Flexible(flex: 1,child: otpTextBox),
               SizedBox(
                 height: 25,
               ),
-              submitButton
+              Flexible(flex: 1,child: submitButton)
             ],
           ),
         )));

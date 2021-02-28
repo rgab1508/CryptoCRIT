@@ -177,7 +177,7 @@ class _TransactionsState extends State<Transactions> {
           child: Column(
             children: [
               Flexible(
-                flex: 5,
+                flex: 4,
                 child: SizedBox(
                   height: height1 * 0.35,
                   child: Center(
@@ -196,8 +196,6 @@ class _TransactionsState extends State<Transactions> {
               ),
               Flexible(flex: 2, child: rollField),
               SizedBox(height: height1 * 0.015),
-              SizedBox(height: height1 * 0.01),
-              SizedBox(height: height1 * 0.03),
               Flexible(child: submitButton, flex: 2),
               Flexible(child: SizedBox(height: height1 * 0.020), flex: 1),
               Flexible(
