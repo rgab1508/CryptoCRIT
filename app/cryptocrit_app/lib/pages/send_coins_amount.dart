@@ -88,7 +88,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
             };
             Navigator.pop(context);
             print(body);
-            waitTrans(context);
+            waitTransAndroid(context);
             final res =
                 await http.post('https://cryptocrit.herokuapp.com/transaction',
                     headers: <String, String>{
@@ -103,7 +103,6 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               // );
               // Scaffold.of(context).showSnackBar(sb);
             } else {
-
               print("going");
               // final sb = SnackBar(
               //   content: Text("Transaction in process"),
@@ -177,7 +176,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               'signature': transaction.signature
             };
             Navigator.pop(context);
-            waitTrans(context);
+            waitTransIos(context);
             print(body);
             final res =
                 await http.post('https://cryptocrit.herokuapp.com/transaction',
@@ -282,6 +281,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
             ),
           ),
         ));
+
     final height1 = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -333,7 +333,7 @@ void transStatusAndroid(BuildContext context) {
               style: TextStyle(color: Colors.white),
             ),
             content: Text(
-                "Your transaction has been successful",
+              "Your transaction has been successful",
               style: TextStyle(color: Colors.white),
             ),
             actions: [
@@ -369,13 +369,32 @@ void transStatusIos(BuildContext context) {
           ));
 }
 
-void waitTrans(BuildContext context) {
+void waitTransAndroid(BuildContext context) {
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
             backgroundColor: Colors.black,
-            title: Text("PROCESSING TRANSACTION",style: TextStyle(color: Colors.white),),
-            content: Text("Your transaction is being processed. Please wait",style: TextStyle(color: Colors.white),),
+            title: Text(
+              "PROCESSING TRANSACTION",
+              style: TextStyle(color: Colors.white),
+            ),
+            content: Text(
+              "Your transaction is being processed. Please wait",
+              style: TextStyle(color: Colors.white),
+            ),
+          ));
+}
+
+void waitTransIos(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+            title: Text(
+              "PROCESSING TRANSACTION",
+            ),
+            content: Text(
+              "Your transaction is being processed. Please wait",
+            ),
           ));
 }
 
@@ -409,8 +428,9 @@ void unscStatusAndroid(BuildContext context) {
               "ERROR",
               style: TextStyle(color: Colors.white),
             ),
-            content:
-                Text("Your transaction has been unsuccessful. Try again later",style: TextStyle(color: Colors.white)),
+            content: Text(
+                "Your transaction has been unsuccessful. Try again later",
+                style: TextStyle(color: Colors.white)),
             actions: [
               FlatButton(
                   onPressed: () {
