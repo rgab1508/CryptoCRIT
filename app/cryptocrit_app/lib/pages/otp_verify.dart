@@ -98,7 +98,7 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
               pref.setString('roll_no', rollNo.toString());
               pref.setString('email', email);
               if (isNew) {
-                Navigator.pushNamed(context, '/create_wallet');
+                Navigator.pushReplacementNamed(context, '/create_wallet');
               } else {
                 Navigator.pushReplacementNamed(context, '/password_login');
                 print("Existing User");
@@ -154,11 +154,11 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
               SizedBox(
                 height: 45,
               ),
-              Flexible(flex: 1,child: otpTextBox),
+              Flexible(flex: 1, child: otpTextBox),
               SizedBox(
                 height: 25,
               ),
-              Flexible(flex: 1,child: submitButton)
+              Flexible(flex: 1, child: submitButton)
             ],
           ),
         )));
