@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cryptography/cryptography.dart' as cg;
-import 'package:eosdart_ecc/eosdart_ecc.dart';
 import 'package:convert/convert.dart';
 
 import 'package:cryptocrit_app/models/transaction_model.dart';
@@ -328,6 +327,9 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
 }
 
 void transStatusAndroid(BuildContext context) {
+  final data1 = jsonDecode(ModalRoute.of(context).settings.arguments);
+  bool fromHistory = data1['from_history'] == 'true';
+
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -343,10 +345,16 @@ void transStatusAndroid(BuildContext context) {
             actions: [
               FlatButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.popAndPushNamed(context, '/home');
+                    if (fromHistory) {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(context, '/home');
+                    } else {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(context, '/home');
+                    }
                   },
                   child: Text("Done"))
             ],
@@ -354,6 +362,9 @@ void transStatusAndroid(BuildContext context) {
 }
 
 void transStatusIos(BuildContext context) {
+  final data = jsonDecode(ModalRoute.of(context).settings.arguments);
+  bool fromHistory = data['from_history'] == 'true';
+
   showDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
@@ -363,10 +374,16 @@ void transStatusIos(BuildContext context) {
               CupertinoDialogAction(
                 child: Text("Okay"),
                 onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  Navigator.popAndPushNamed(context, '/home');
+                  if (fromHistory == true) {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, '/home');
+                  } else {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, '/home');
+                  }
                 },
               )
             ],
@@ -403,6 +420,9 @@ void waitTransIos(BuildContext context) {
 }
 
 void unscStatusIos(BuildContext context) {
+  final data = jsonDecode(ModalRoute.of(context).settings.arguments);
+  bool fromHistory = data['from_history'] == 'true';
+
   showDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
@@ -413,10 +433,16 @@ void unscStatusIos(BuildContext context) {
               CupertinoDialogAction(
                 child: Text("Okay"),
                 onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  Navigator.popAndPushNamed(context, '/home');
+                  if (fromHistory == true) {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, '/home');
+                  } else {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, '/home');
+                  }
                 },
               )
             ],
@@ -424,6 +450,9 @@ void unscStatusIos(BuildContext context) {
 }
 
 void unscStatusAndroid(BuildContext context) {
+  final data = jsonDecode(ModalRoute.of(context).settings.arguments);
+  bool fromHistory = data['from_history'] == 'true';
+
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -438,10 +467,16 @@ void unscStatusAndroid(BuildContext context) {
             actions: [
               FlatButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.popAndPushNamed(context, '/home');
+                    if (fromHistory == true) {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(context, '/home');
+                    } else {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(context, '/home');
+                    }
                   },
                   child: Text("Done"))
             ],
