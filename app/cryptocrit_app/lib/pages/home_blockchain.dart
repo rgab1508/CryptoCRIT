@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../models/block_model.dart';
-import '../models/transaction_model.dart';
+//import '../models/transaction_model.dart';
 
 class HomeBlockchain extends StatefulWidget {
   @override
@@ -78,8 +78,8 @@ class _HomeBlockchainState extends State<HomeBlockchain> {
                       child: Text(
                         "Blocks",
                         style: TextStyle(
-                            fontSize: 50,
-                            color: Colors.white,
+                          fontSize: 50,
+                          color: Colors.white,
                         ),
                       )),
                 ),
@@ -127,7 +127,9 @@ class BlockTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
           title: Text("Block " + index.toString()),
-          subtitle: Text(timestamp.toString()),
+          subtitle: Text(DateTime.fromMillisecondsSinceEpoch(timestamp)
+              .toString()
+              .substring(0, 19)),
           tileColor: Colors.lightGreenAccent,
         ),
       ),

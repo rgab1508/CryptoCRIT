@@ -109,7 +109,7 @@ class TransactionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(5.0, 1.0, 5.0, 1.0),
+          padding: const EdgeInsets.fromLTRB(6.0, 1.5, 6.0, 1.5),
           child: ListTile(
             onLongPress: () {
               Clipboard.setData(new ClipboardData(text: address));
@@ -124,12 +124,20 @@ class TransactionTile extends StatelessWidget {
             subtitle: Text(
               type == "send"
                   ? "To : " +
-                      truncate(address,
-                          20) //TODO Add date here DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp))
-                  : "From : " + truncate(address, 18),
+                      truncate(address, 20) +
+                      "\nTime: " +
+                      DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp))
+                          .toString()
+                          .substring(0, 19)
+                  : "From : " +
+                      truncate(address, 18) +
+                      "\nTime: " +
+                      DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp))
+                          .toString()
+                          .substring(0, 19),
               style: TextStyle(color: Colors.white),
             ),
-            tileColor: type == "send" ? Colors.grey[850] : Colors.grey[900],
+            tileColor: type == "send" ? Colors.grey[900] : Colors.grey[900],
             leading: type == "send"
                 ? Icon(
                     Icons.arrow_forward_outlined,
