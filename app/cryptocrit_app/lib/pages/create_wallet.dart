@@ -132,7 +132,7 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
           minWidth: MediaQuery.of(context).size.width * 0.65,
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/home');
+            Navigator.pushReplacementNamed(context, '/avatar_Select');
           },
           child: Text(
             "Next >>",

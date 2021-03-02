@@ -33,6 +33,8 @@ dependencies:
   bip39: any #^1.0.4
   auto_size_text: ^2.1.0
   qr_code_scanner: ^0.3.5
+  cached_network_image: ^2.5.0
+  flutter_svg: any
   #flutter_platform_widgets: ^0.72.0
 
 

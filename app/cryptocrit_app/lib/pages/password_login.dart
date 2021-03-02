@@ -115,7 +115,8 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                           Scaffold.of(context).showSnackBar(sb);
                           pref.setString('private_key', privateKey.toString());
                           pref.setString('public_key', publicKey.toString());
-                          Navigator.pushReplacementNamed(context, '/home');
+                          Navigator.pushReplacementNamed(
+                              context, '/avatar_select');
                         } else {
                           setState(() {
                             _loadingButton = false;
