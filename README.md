@@ -36,7 +36,7 @@ This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](ht
 
 ## Tasks
 
-- [ ] Backend
+- [x] Backend
 - [ ] Frontend
 - [ ] Logic
 - [ ] Working
@@ -81,7 +81,7 @@ All the configuration data should be present in a `config.json` file
 ## Credits
 
 * [Gabriel Rajendran](https://github.com/rgab1508)
-* [Aditya Unnikrishnan](https://instagram.com/adi.unni)
+* [Aditya Unnikrishnan](https://www.adiunni.tech)
 * [Abhishek Chaudhary](https://theabbie.github.io)
 * [Tushar Gupta](https://instagram.com/tushar_gupta_339)
 
