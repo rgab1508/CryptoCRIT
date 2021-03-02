@@ -52,62 +52,65 @@ class _AvatarSelectState extends State<AvatarSelect> {
           ),
         ));
 
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          AutoSizeText(
-            "SELECT AVATAR",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AutoSizeText(
+              "SELECT AVATAR",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.height * 0.4,
-            child: CircleAvatar(
-                backgroundColor: Colors.black,
-                child: SvgPicture.network(
-                  avatar,
-                  fit: BoxFit.fill,
-                  semanticsLabel: 'Avatar',
-                  placeholderBuilder: (BuildContext context) => Container(
-                      padding: const EdgeInsets.all(30.0),
-                      child: const CircularProgressIndicator(
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.height * 0.4,
+              child: CircleAvatar(
+                  backgroundColor: Colors.black,
+                  child: SvgPicture.network(
+                    avatar,
+                    fit: BoxFit.fill,
+                    semanticsLabel: 'Avatar',
+                    placeholderBuilder: (BuildContext context) => Container(
+                        padding: const EdgeInsets.all(30.0),
+                        child: const CircularProgressIndicator(
+                          strokeWidth: 2,
+                        )),
+                  )),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration:
+                  BoxDecoration(color: Color(0xff7e57c2), shape: BoxShape.circle),
+              child: GestureDetector(
+                onTap: () {
+                  getAvatar();
+                },
+                child: _loading
+                    ? CircularProgressIndicator(
+                        backgroundColor: Colors.black,
                         strokeWidth: 2,
-                      )),
-                )),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            padding: EdgeInsets.all(20),
-            decoration:
-                BoxDecoration(color: Color(0xff7e57c2), shape: BoxShape.circle),
-            child: GestureDetector(
-              onTap: () {
-                getAvatar();
-              },
-              child: _loading
-                  ? CircularProgressIndicator(
-                      backgroundColor: Colors.black,
-                      strokeWidth: 2,
-                    )
-                  : Icon((Icons.shuffle), size: 40, color: Colors.white),
+                      )
+                    : Icon((Icons.shuffle), size: 40, color: Colors.white),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          nextButton
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            nextButton
+          ],
+        ),
       ),
     );
   }

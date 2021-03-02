@@ -124,13 +124,15 @@ class BlockTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(6.0,2.0,6.0,2.0),
         child: ListTile(
-          title: Text("Block " + index.toString()),
+          leading: Text(index.toString(),style: TextStyle(color: Colors.white,fontSize: 25),),
+          title: Text("Block " + index.toString(),style: TextStyle(color: Colors.white),),
           subtitle: Text(DateTime.fromMillisecondsSinceEpoch(timestamp)
               .toString()
-              .substring(0, 19)),
-          tileColor: Colors.lightGreenAccent,
+              .substring(0, 19),
+          style: TextStyle(color: Colors.white),),
+          tileColor: Colors.grey[900],
         ),
       ),
     );
