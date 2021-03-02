@@ -25,7 +25,6 @@ class _TransactionsState extends State<Transactions> {
 
   @override
   void initState() {
-    // TODO: Implement transaction function.
     super.initState();
     print('Transaction initState run');
     setState(() {
@@ -163,7 +162,7 @@ class _TransactionsState extends State<Transactions> {
         ));
 
     double height1 = MediaQuery.of(context).size.height;
-    print('Transaction build run');
+    //print('Transaction build run');
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(

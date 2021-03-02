@@ -99,7 +99,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
                     body: jsonEncode(body));
             if (res.statusCode != 200) {
               print(res.body);
-              unscStatusAndroid(context);
+              unscStatusAndroid(context, res);
               // final sb = SnackBar(
               //   content: Text(res.body),
               // );
@@ -189,8 +189,8 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
                     body: jsonEncode(body));
             if (res.statusCode != 200) {
               Navigator.pop(context);
-              unscStatusIos(context);
-              print(res.body);
+              unscStatusIos(context, res);
+              //print(res.body);
               // final sb = SnackBar(
               //   content: Text(res.body),
               // );
@@ -368,7 +368,10 @@ void transStatusIos(BuildContext context) {
   showDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-            title: Text("Success"),
+            title: Text(
+              "Success",
+              style: TextStyle(fontFamily: 'SanFrancisco'),
+            ),
             content: Text("Your transaction has been successful"),
             actions: [
               CupertinoDialogAction(
@@ -397,7 +400,9 @@ void waitTransAndroid(BuildContext context) {
             backgroundColor: Colors.black,
             title: Text(
               "PROCESSING TRANSACTION",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Colors.white,
+              ),
             ),
             content: Text(
               "Your transaction is being processed. Please wait",
@@ -412,23 +417,32 @@ void waitTransIos(BuildContext context) {
       builder: (context) => CupertinoAlertDialog(
             title: Text(
               "PROCESSING TRANSACTION",
+              style: TextStyle(
+                  fontFamily: 'SanFranciso', fontWeight: FontWeight.bold),
             ),
             content: Text(
               "Your transaction is being processed. Please wait",
+              style: TextStyle(fontFamily: 'SanFrancisco'),
             ),
           ));
 }
 
-void unscStatusIos(BuildContext context) {
+void unscStatusIos(BuildContext context, var res) {
   final data = jsonDecode(ModalRoute.of(context).settings.arguments);
   bool fromHistory = data['from_history'] == 'true';
 
   showDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-            title: Text("ERROR"),
-            content:
-                Text("Your transaction has been unsuccessful. Try again later"),
+            title: Text(
+              "ERROR",
+              style: TextStyle(
+                  fontFamily: 'SanFrancisco', fontWeight: FontWeight.bold),
+            ),
+            content: Text(
+              "Your transaction has been unsuccessful \nError: ${res.body}",
+              style: TextStyle(fontFamily: 'SanFrancisco'),
+            ),
             actions: [
               CupertinoDialogAction(
                 child: Text("Okay"),
@@ -449,7 +463,7 @@ void unscStatusIos(BuildContext context) {
           ));
 }
 
-void unscStatusAndroid(BuildContext context) {
+void unscStatusAndroid(BuildContext context, var res) {
   final data = jsonDecode(ModalRoute.of(context).settings.arguments);
   bool fromHistory = data['from_history'] == 'true';
 
@@ -462,7 +476,7 @@ void unscStatusAndroid(BuildContext context) {
               style: TextStyle(color: Colors.white),
             ),
             content: Text(
-                "Your transaction has been unsuccessful. Try again later",
+                "Your transaction has been unsuccessful.\nError: ${res.body}",
                 style: TextStyle(color: Colors.white)),
             actions: [
               FlatButton(
