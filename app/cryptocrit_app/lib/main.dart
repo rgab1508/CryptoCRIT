@@ -20,7 +20,7 @@ import 'package:cryptocrit_app/pages/avatar_select.dart';
 void main() => runApp(MaterialApp(
       title: 'CryptoCrit',
       theme: ThemeData(fontFamily: 'MartelSans'),
-      initialRoute: '/avatar_select',
+      initialRoute: '/logo_screen',
       routes: {
         '/logo_screen': (context) => LogoScreen(),
         '/home': (context) => Home(),
