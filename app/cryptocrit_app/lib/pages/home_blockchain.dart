@@ -1,3 +1,4 @@
+import 'package:cryptocrit_app/models/transaction_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -29,32 +30,9 @@ class _HomeBlockchainState extends State<HomeBlockchain> {
     }
   }
 
-  void fetchDemoBlock() {
-    Block b = new Block(
-        index: 0,
-        difficulty: 30,
-        nonce: 313,
-        hash: "sabfdbkfddkjbckjckdb",
-        prevHash: "asjdiasbckabcusacjnkncoidfdjnscnodu",
-        timestamp: 132468754613);
-    chain.add(b);
-    b = new Block(
-        index: 1,
-        difficulty: 29,
-        nonce: 1234,
-        hash: "sabfdbkfddksabfdbkfddkjbckjckdbjbckjckdb",
-        prevHash: "asjdiasbckabsabfdbkfddkjbckjckdbcusacjnkncoidfdjnscnodu",
-        timestamp: 132468755000);
-    chain.add(b);
-    setState(() {
-      _loading = false;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    //fetchDemoBlock();
     fetchBlockchain();
   }
 
@@ -95,6 +73,7 @@ class _HomeBlockchainState extends State<HomeBlockchain> {
                               hash: chain[index].hash,
                               prevHash: chain[index].prevHash,
                               nonce: chain[index].nonce,
+                              data: chain[index].data,
                             )),
                   ),
                 )
@@ -111,6 +90,7 @@ class BlockTile extends StatelessWidget {
   final String prevHash;
   final int difficulty;
   final nonce;
+  final Transaction data;
 
   BlockTile(
       {this.index,
@@ -118,20 +98,33 @@ class BlockTile extends StatelessWidget {
       this.hash,
       this.prevHash,
       this.difficulty,
-      this.nonce});
+      this.nonce,
+      this.data});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(6.0,2.0,6.0,2.0),
+        padding: const EdgeInsets.fromLTRB(6.0, 2.0, 6.0, 2.0),
         child: ListTile(
-          leading: Text(index.toString(),style: TextStyle(color: Colors.white,fontSize: 25),),
-          title: Text("Block " + index.toString(),style: TextStyle(color: Colors.white),),
-          subtitle: Text(DateTime.fromMillisecondsSinceEpoch(timestamp)
-              .toString()
-              .substring(0, 19),
-          style: TextStyle(color: Colors.white),),
+          leading: Text(
+            index.toString(),
+            style: TextStyle(color: Colors.white, fontSize: 25),
+          ),
+          title: Text(
+            data == null
+                ? "Block " + index.toString()
+                : data.toRollNo.toString() +
+                    " -> " +
+                    data.fromRollNo.toString(),
+            style: TextStyle(color: Colors.white),
+          ),
+          subtitle: Text(
+            DateTime.fromMillisecondsSinceEpoch(timestamp)
+                .toString()
+                .substring(0, 19),
+            style: TextStyle(color: Colors.white),
+          ),
           tileColor: Colors.grey[900],
         ),
       ),
