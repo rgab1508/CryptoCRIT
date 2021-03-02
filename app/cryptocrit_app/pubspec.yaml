@@ -81,6 +81,11 @@ flutter:
         - asset: fonts/MartelSans-Bold.ttf
           weight: 700
 
+    - family : SanFrancisco
+      fonts:
+        - asset: fonts/SF-Pro.ttf
+        - asset: fonts/SF-Pro-Italic.ttf
+
 
   assets:
     - assets/logo.png
