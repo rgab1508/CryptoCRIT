@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,12 +19,15 @@ class _ProfileState extends State<Profile> {
   String email = "";
   String rollNo = "";
   String balance = "...";
+  var avatar;
 
   Future<void> getInfo() async {
     final pref = await SharedPreferences.getInstance();
     setState(() {
       rollNo = pref.getString('roll_no') ?? "";
       email = pref.getString('email') ?? "";
+      avatar = pref.getString('avatar');
+      print(avatar);
     });
     final token = pref.getString('token');
     final res =
@@ -174,6 +178,19 @@ class _ProfileState extends State<Profile> {
                   child: Align(
                     alignment: Alignment.center,
                     child: CircleAvatar(
+                      child: avatar == null
+                          ? null
+                          : SvgPicture.network(
+                              avatar,
+                              fit: BoxFit.fill,
+                              semanticsLabel: 'Avatar',
+                              placeholderBuilder: (BuildContext context) =>
+                                  Container(
+                                      padding: const EdgeInsets.all(30.0),
+                                      child: const CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      )),
+                            ),
                       backgroundColor: Colors.white,
                       radius: 80,
                     ),
