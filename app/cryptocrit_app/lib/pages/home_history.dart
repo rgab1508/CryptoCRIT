@@ -25,7 +25,6 @@ class _HomeHistoryState extends State<HomeHistory> {
       );
       Scaffold.of(context).showSnackBar(sb);
     } else {
-      print(res.body);
       if (this.mounted) {
         setState(() {
           transactions = jsonDecode(res.body);

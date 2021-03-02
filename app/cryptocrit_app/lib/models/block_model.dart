@@ -7,16 +7,16 @@ class Block {
   final String hash;
   final String prevHash;
   final int timestamp;
-  Transaction data;
+  final Transaction data;
 
-  Block({
-    this.index,
-    this.difficulty,
-    this.nonce,
-    this.hash,
-    this.prevHash,
-    this.timestamp,
-  });
+  Block(
+      {this.index,
+      this.difficulty,
+      this.nonce,
+      this.hash,
+      this.prevHash,
+      this.timestamp,
+      this.data});
 
   factory Block.fromJson(Map<String, dynamic> json) {
     return Block(
@@ -25,8 +25,7 @@ class Block {
         nonce: json['nonce'],
         hash: json['hash'],
         prevHash: json['prevHash'],
-        timestamp: json['timestamp']
-        //data: json['data']
-        );
+        timestamp: json['timestamp'],
+        data: json['data'] == null ? null : Transaction.fromJson(json['data']));
   }
 }
