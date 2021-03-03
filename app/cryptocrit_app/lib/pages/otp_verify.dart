@@ -143,7 +143,7 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
               Padding(
                 padding: EdgeInsets.all(12),
                 child: Text(
-                  "Enter the OTP received from <email>",
+                  "Enter the OTP received from $email",
                   maxLines: 2,
                   style: TextStyle(
                     color: Colors.white,
