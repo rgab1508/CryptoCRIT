@@ -19,7 +19,7 @@ This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](ht
 </thead>
 <tbody>
 <tr><th scope='row'>Name</th><td>CryptoCRIT</td></tr>
-<tr><th scope='row'>Technologies Used</th><td><ul><li>Blockchain</li><li>RSA Encryption</li></ul></td></tr>
+<tr><th scope='row'>Technologies Used</th><td><ul><li>Blockchain</li><li>ECC</li></ul></td></tr>
 <tr><th scope='row'>College</th><td><a href="https://www.fcrit.ac.in">Fr. Conceicao Rodrigues Institute of Technology</a></td></tr>
 <tr><th scope='row'>Team</th>
 <td>
@@ -57,26 +57,6 @@ Thank you for your interest in contributing, We are currently not interested in 
 ## Help
 
 You can contact us on social media, Our preferred mediums are as mentioned below
-
-## Installation
-
-### Requirements
-
-* Node.Js installed
-* A server or localhost
-
-### Installation
-
-A sample installation would be something like this
-
-```sh
-npm install -g cryptocrit
-cryptocrit init
-```
-
-### Configuration
-
-All the configuration data should be present in a `config.json` file
 
 ## Credits
 
