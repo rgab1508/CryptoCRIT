@@ -37,9 +37,9 @@ This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](ht
 ## Tasks
 
 - [x] Backend
-- [ ] Frontend
-- [ ] Logic
-- [ ] Working
+- [x] Frontend
+- [x] Logic
+- [x] Working
 - [ ] Production
 
 ## Usage
