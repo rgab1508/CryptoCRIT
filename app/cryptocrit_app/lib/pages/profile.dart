@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cryptocrit_app/utils/rip39.dart' as rip39;
 
 class Profile extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _ProfileState extends State<Profile> {
   String email = "";
   String rollNo = "";
   String balance = "...";
+  String privateKey;
   var avatar;
 
   Future<void> getInfo() async {
@@ -27,6 +29,7 @@ class _ProfileState extends State<Profile> {
       rollNo = pref.getString('roll_no') ?? "";
       email = pref.getString('email') ?? "";
       avatar = pref.getString('avatar');
+      privateKey = pref.getString('private_key');
       print(avatar);
     });
     final token = pref.getString('token');
@@ -50,6 +53,23 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    final copyButton = Material(
+        color: Colors.black,
+        child: TextButton(
+          onPressed: () {
+            var mnemonics = rip39.entropyToMnemonic(privateKey);
+            Clipboard.setData(new ClipboardData(text: mnemonics));
+            var sb = SnackBar(
+              content: Text("Copied to ClipBoard"),
+            );
+            Scaffold.of(context).showSnackBar(sb);
+          },
+          child: Text(
+            "COPY PASSPHRASE",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ));
+
     final _platformDBA = AlertDialog(
       title: Text("LOGOUT"),
       content: Text("Are you sure to logout ?"),
@@ -265,6 +285,14 @@ class _ProfileState extends State<Profile> {
                     minFontSize: 25,
                   ),
                 ),
+                Flexible(
+                  child: Divider(
+                    height: 20,
+                    color: Colors.grey[700],
+                  ),
+                  flex: 1,
+                ),
+                copyButton
               ],
             ),
           ),
