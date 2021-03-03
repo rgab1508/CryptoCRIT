@@ -37,10 +37,6 @@ class _TransactionsState extends State<Transactions> {
     final rollField = TextField(
       controller: myController,
       autofocus: false,
-      keyboardType: TextInputType.number,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-      ],
       cursorColor: Colors.white,
       obscureText: false,
       style: TextStyle(

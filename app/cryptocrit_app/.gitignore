@@ -41,3 +41,5 @@ app.*.symbols
 app.*.map.json
 
 lib/pages/test.dart
+
+android/key.properties

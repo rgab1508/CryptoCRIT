@@ -28,6 +28,7 @@ class _HomeHistoryState extends State<HomeHistory> {
       if (this.mounted) {
         setState(() {
           transactions = jsonDecode(res.body);
+          transactions = transactions.reversed.toList();
           _loading = false;
         });
       }
