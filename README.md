@@ -42,15 +42,8 @@ This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](ht
 - [ ] Working
 - [ ] Production
 
-## Usage
 
-```sh
-mkdir <project-name>
-cd <project-name>
-cryptocrit run
-```
-
-## Contributing
+## Contribution
 
 Thank you for your interest in contributing, We are currently not interested in Contribution as this is our college project, If you have any suggestions or ideas, you can contact any of us, details are as mentioned below
 
