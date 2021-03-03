@@ -114,9 +114,9 @@ class BlockTile extends StatelessWidget {
           title: Text(
             data == null
                 ? "Block " + index.toString()
-                : data.toRollNo.toString() +
+                : data.fromRollNo.toString() +
                     " -> " +
-                    data.fromRollNo.toString(),
+                    data.toRollNo.toString(),
             style: TextStyle(color: Colors.white),
           ),
           subtitle: Text(
