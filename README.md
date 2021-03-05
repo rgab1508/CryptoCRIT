@@ -1,4 +1,4 @@
-# CryptoCRIT
+# CryptoCRIT - Let's take CritCoin to the MOOOOOOON!
 
 ![CryptoCRIT](https://theabbie.github.io/files/CryptoCRIT.png)
 
