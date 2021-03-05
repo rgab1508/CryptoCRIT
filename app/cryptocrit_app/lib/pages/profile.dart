@@ -66,7 +66,7 @@ class _ProfileState extends State<Profile> {
           },
           child: Text(
             "COPY PASSPHRASE",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(color: Colors.white, fontSize: 17),
           ),
         ));
 
@@ -194,7 +194,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 Flexible(child: SizedBox(height: 50), flex: 0),
                 Flexible(
-                  flex: 3,
+                  flex: 4,
                   child: Align(
                     alignment: Alignment.center,
                     child: CircleAvatar(
