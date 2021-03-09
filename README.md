@@ -30,11 +30,11 @@ This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](ht
 <ol>
   <li> Once you have installed the application, open the app and you will be prompted to enter your roll no.</li>
  
- ![Login Page](images/2.png)
+ ![Login Page](images/2_40.png)
  
  <li> If you have registered for CryptoCrit using the link below, you must receive an OTP in your registered mail ID ( One entered in the form). Check on spam folder, most likely you will find the OTP mail there.</li>
  
- ![OTP Page](images/1.png)
+ ![OTP Page](images/1_40.png)
  
   <li> If you are a new user, you will be given a pass phrase. Save it in your clipboard or write it down. Once this passphrase is lost your wallet is gone    forever!!</li>
   <li> If you are an existing user, you will be requested to enter your given passphrase</li>
