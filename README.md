@@ -29,13 +29,41 @@ This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](ht
 ## Wallet setup procedure
 <ol>
   <li> Once you have installed the application, open the app and you will be prompted to enter your roll no.</li>
+ 
+ ![Login Page](images/2_40.png)
+ 
  <li> If you have registered for CryptoCrit using the link below, you must receive an OTP in your registered mail ID ( One entered in the form). Check on spam folder, most likely you will find the OTP mail there.</li>
+ 
+ ![OTP Page](images/1_40.png)
+ 
   <li> If you are a new user, you will be given a pass phrase. Save it in your clipboard or write it down. Once this passphrase is lost your wallet is gone    forever!!</li>
+  <br>
   <li> If you are an existing user, you will be requested to enter your given passphrase</li>
-  <li> You will be allowed to choose an avatar once your account is created </li>
+  
+  ![Passphrase](images/3_40.png)
+  <br>
+  <li> You will be allowed to choose an avatar once your account is created. Once selected, a new avatar will not be given unless logged out. </li>
+  
+  ![Avatar page](images/6_40.png)
+  <br>
   <li> Your account balance will be 0 initially, you will have to request the admin to transfer the necessary amount. </li>
+  
+  <li>This will be your homepage. You can send coins by clicking on send coins button or receive coins using QR code facility by clicking receive coins.</li>
+  
+  ![Homepage](images/4_40.png)
+  <br>
  <li> Transactions can be done as per normal. All you need to know is the sender's roll no and you are good to go. Just make sure receiver is also registered. </li>
+ 
+ <li>Some other utilities</li>
+ 
+ ![Profile page](images/7_40.png)
+ 
+ ![Blockchain](images/8_66.png)
+ 
+ ![History](images/5_3_67.png)
+ 
 </ol>
+
 
 
 ## Registeration
