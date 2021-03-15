@@ -66,7 +66,7 @@ This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](ht
 
 
 
-## Registeration
+## Registration
 If you are from our college and want to use this app, kindly register in the link below. Registering will allow us to setup your wallet by adding your email ID and your roll no to the user database.
 <br> <br>
 [Register for CryptoCRIT](https://forms.gle/YBWYhgjGRyVQRJTn6)
