@@ -25,7 +25,6 @@ dependencies:
     sdk: flutter
   http: ^0.12.2
   flutter_spinkit: ^4.1.2
-  flutter_form_builder: ^4.2.0
   shared_preferences: ^0.5.12+4
   provider: ^4.3.3
   cryptography: ^1.4.1

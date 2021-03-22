@@ -84,7 +84,7 @@ class _ProfileState extends State<Profile> {
         fontSize: 18,
       ),
       actions: [
-        FlatButton(
+        TextButton(
             onPressed: () async {
               final pref = await SharedPreferences.getInstance();
               final token = pref.getString('token');
@@ -115,7 +115,7 @@ class _ProfileState extends State<Profile> {
                 fontWeight: FontWeight.bold,
               ),
             )),
-        FlatButton(
+        TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -181,7 +181,7 @@ class _ProfileState extends State<Profile> {
                         showDialog(
                             context: context,
                             builder: (context) {
-                              if (Platform.isAndroid) {
+                              if (Platform.isAndroid || Platform.isWindows) {
                                 return _platformDBA;
                               } else if (Platform.isIOS) {
                                 return _platformDBI;
