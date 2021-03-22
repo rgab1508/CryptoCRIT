@@ -260,7 +260,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
               showDialog(
                   context: context,
                   builder: (context) {
-                    if (Platform.isAndroid) {
+                    if (Platform.isAndroid || Platform.isWindows ) {
                       return _platformDialogA;
                     } else if (Platform.isIOS) {
                       return _platformDialogC;
@@ -343,7 +343,7 @@ void transStatusAndroid(BuildContext context) {
               style: TextStyle(color: Colors.white),
             ),
             actions: [
-              FlatButton(
+              TextButton(
                   onPressed: () {
                     if (fromHistory) {
                       Navigator.pop(context);
@@ -495,4 +495,38 @@ void unscStatusAndroid(BuildContext context, var res) {
                   child: Text("Done"))
             ],
           ));
+}
+
+void unscStatusWeb(BuildContext context, var res) {
+  final data = jsonDecode(ModalRoute.of(context).settings.arguments);
+  bool fromHistory = data['from_history'] == 'true';
+
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.black,
+        title: Text(
+          "ERROR",
+          style: TextStyle(color: Colors.white),
+        ),
+        content: Text(
+            "Your transaction has been unsuccessful.\nError: ${res.body}",
+            style: TextStyle(color: Colors.white)),
+        actions: [
+          FlatButton(
+              onPressed: () {
+                if (fromHistory == true) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, '/home');
+                } else {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, '/home');
+                }
+              },
+              child: Text("Done"))
+        ],
+      ));
 }
