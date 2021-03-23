@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -130,6 +132,7 @@ class _TransactionsState extends State<Transactions> {
           ),
         ));
 
+    final snackBar101 = SnackBar(content: Text("This feature is not available now."));
     final qrButton = Material(
         elevation: 5.0,
         borderRadius: BorderRadius.circular(30),
@@ -139,7 +142,12 @@ class _TransactionsState extends State<Transactions> {
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             onPressed: () async {
-              Navigator.pushNamed(context, '/qr_scan');
+              if (Platform.isAndroid || Platform.isIOS) {
+                Navigator.pushNamed(context, '/qr_scan');
+              }
+              else{
+                ScaffoldMessenger.of(context).showSnackBar(snackBar101);
+              }
             },
             child: AutoSizeText(
               "Scan QR code",

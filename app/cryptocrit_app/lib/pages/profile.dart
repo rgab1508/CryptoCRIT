@@ -104,7 +104,12 @@ class _ProfileState extends State<Profile> {
                 Scaffold.of(context).showSnackBar(sb);
               } else {
                 await pref.clear();
-                SystemNavigator.pop();
+                if(Platform.isAndroid){
+                  SystemNavigator.pop();}
+                else if(Platform.isWindows){
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, '/login');
+                }
               }
               //SystemChannels.platform.invokeMethod('SystemNavigator.pop()');
             },
@@ -193,27 +198,24 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Flexible(child: SizedBox(height: 50), flex: 0),
-                Flexible(
-                  flex: 4,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CircleAvatar(
-                      child: avatar == null
-                          ? null
-                          : SvgPicture.network(
-                              avatar,
-                              fit: BoxFit.fill,
-                              semanticsLabel: 'Avatar',
-                              placeholderBuilder: (BuildContext context) =>
-                                  Container(
-                                      padding: const EdgeInsets.all(30.0),
-                                      child: const CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                      )),
-                            ),
-                      backgroundColor: Colors.white,
-                      radius: 80,
-                    ),
+                Align(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    child: avatar == null
+                        ? null
+                        : SvgPicture.network(
+                            avatar,
+                            fit: BoxFit.fill,
+                            semanticsLabel: 'Avatar',
+                            placeholderBuilder: (BuildContext context) =>
+                                Container(
+                                    padding: const EdgeInsets.all(30.0),
+                                    child: const CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    )),
+                          ),
+                    backgroundColor: Colors.white,
+                    radius: 80,
                   ),
                 ),
                 Flexible(child: SizedBox(height: 30), flex: 0),
@@ -234,7 +236,7 @@ class _ProfileState extends State<Profile> {
                         fontSize: 35,
                         color: Colors.white,
                       ),
-                      minFontSize: 25,
+                      minFontSize: 20,
                     ),
                   ),
                 ),
@@ -259,7 +261,7 @@ class _ProfileState extends State<Profile> {
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
-                    minFontSize: 25,
+                    minFontSize: 23,
                   ),
                 ),
                 Flexible(child: SizedBox(height: 25), flex: 0),
@@ -282,7 +284,7 @@ class _ProfileState extends State<Profile> {
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
-                    minFontSize: 25,
+                    minFontSize: 23,
                   ),
                 ),
                 Flexible(
@@ -292,7 +294,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   flex: 1,
                 ),
-                copyButton
+                Flexible(flex: 1,child: copyButton)
               ],
             ),
           ),
