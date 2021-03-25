@@ -262,7 +262,7 @@ class _SendAmountTransactionsState extends State<SendAmountTransactions> {
                   builder: (context) {
                     if (Platform.isAndroid || Platform.isWindows) {
                       return _platformDialogA;
-                    } else if (Platform.isIOS || Platform.isIOS) {
+                    } else if (Platform.isIOS || Platform.isMacOS {
                       return _platformDialogC;
                     }
                   });
