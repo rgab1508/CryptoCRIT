@@ -87,7 +87,7 @@ class _TransactionsState extends State<Transactions> {
                 final sb = SnackBar(
                   content: Text("Enter a Valid Roll No."),
                 );
-                Scaffold.of(context).showSnackBar(sb);
+                ScaffoldMessenger.of(context).showSnackBar(sb);
               }
               if (validRollNo) {
                 final res = await http.get(
@@ -96,7 +96,7 @@ class _TransactionsState extends State<Transactions> {
                   final sb = SnackBar(
                     content: Text(res.body),
                   );
-                  Scaffold.of(context).showSnackBar(sb);
+                  ScaffoldMessenger.of(context).showSnackBar(sb);
                   setState(() {
                     _loadingButton = false;
                   });
@@ -132,7 +132,8 @@ class _TransactionsState extends State<Transactions> {
           ),
         ));
 
-    final snackBar101 = SnackBar(content: Text("This feature is not available now."));
+    final snackBar101 =
+        SnackBar(content: Text("This feature is not available now."));
     final qrButton = Material(
         elevation: 5.0,
         borderRadius: BorderRadius.circular(30),
@@ -144,8 +145,7 @@ class _TransactionsState extends State<Transactions> {
             onPressed: () async {
               if (Platform.isAndroid || Platform.isIOS) {
                 Navigator.pushNamed(context, '/qr_scan');
-              }
-              else{
+              } else {
                 ScaffoldMessenger.of(context).showSnackBar(snackBar101);
               }
             },

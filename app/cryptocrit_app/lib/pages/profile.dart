@@ -62,7 +62,7 @@ class _ProfileState extends State<Profile> {
             var sb = SnackBar(
               content: Text("Copied to ClipBoard"),
             );
-            Scaffold.of(context).showSnackBar(sb);
+            ScaffoldMessenger.of(context).showSnackBar(sb);
           },
           child: Text(
             "COPY PASSPHRASE",
@@ -101,12 +101,12 @@ class _ProfileState extends State<Profile> {
                   content: Text('Something went wrong..'),
                 );
                 print(res.body);
-                Scaffold.of(context).showSnackBar(sb);
+                ScaffoldMessenger.of(context).showSnackBar(sb);
               } else {
                 await pref.clear();
-                if(Platform.isAndroid){
-                  SystemNavigator.pop();}
-                else if(Platform.isWindows){
+                if (Platform.isAndroid) {
+                  SystemNavigator.pop();
+                } else if (Platform.isWindows) {
                   Navigator.pop(context);
                   Navigator.popAndPushNamed(context, '/login');
                 }
@@ -188,7 +188,7 @@ class _ProfileState extends State<Profile> {
                             builder: (context) {
                               if (Platform.isAndroid || Platform.isWindows) {
                                 return _platformDBA;
-                              } else if (Platform.isIOS) {
+                              } else if (Platform.isIOS || Platform.isMacOS) {
                                 return _platformDBI;
                               }
                             });
@@ -294,7 +294,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   flex: 1,
                 ),
-                Flexible(flex: 1,child: copyButton)
+                Flexible(flex: 1, child: copyButton)
               ],
             ),
           ),

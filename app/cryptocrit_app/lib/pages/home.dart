@@ -1,4 +1,4 @@
-import 'dart:convert';
+//import 'dart:convert';
 
 import 'package:cryptocrit_app/pages/home_blockchain.dart';
 import 'package:cryptocrit_app/pages/home_transaction.dart';
@@ -6,7 +6,7 @@ import 'package:cryptocrit_app/pages/home_history.dart';
 import 'package:cryptocrit_app/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   @override

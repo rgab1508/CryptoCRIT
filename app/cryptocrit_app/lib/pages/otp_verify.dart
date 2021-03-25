@@ -85,7 +85,7 @@ class _OTPverifyPageState extends State<OTPVerifyPage> {
               var sb = SnackBar(
                 content: Text(res.body),
               );
-              Scaffold.of(context).showSnackBar(sb);
+              ScaffoldMessenger.of(context).showSnackBar(sb);
               setState(() {
                 _loadingButton = false;
               });
