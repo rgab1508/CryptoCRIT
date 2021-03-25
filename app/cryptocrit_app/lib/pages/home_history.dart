@@ -23,7 +23,7 @@ class _HomeHistoryState extends State<HomeHistory> {
       final sb = SnackBar(
         content: Text(res.body),
       );
-      Scaffold.of(context).showSnackBar(sb);
+      ScaffoldMessenger.of(context).showSnackBar(sb);
     } else {
       if (this.mounted) {
         setState(() {

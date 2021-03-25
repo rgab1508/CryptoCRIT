@@ -70,7 +70,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                       final sb = SnackBar(
                         content: Text("passphrase is empty"),
                       );
-                      Scaffold.of(context).showSnackBar(sb);
+                      ScaffoldMessenger.of(context).showSnackBar(sb);
                     }
                     var pk;
                     var valid = true;
@@ -84,7 +84,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                       final sb = SnackBar(
                         content: Text('Password Invalid.(try again)'),
                       );
-                      Scaffold.of(context).showSnackBar(sb);
+                      ScaffoldMessenger.of(context).showSnackBar(sb);
                     }
                     if (valid) {
                       print(pk);
@@ -99,7 +99,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                         final sb = SnackBar(
                           content: Text(res.body),
                         );
-                        Scaffold.of(context).showSnackBar(sb);
+                        ScaffoldMessenger.of(context).showSnackBar(sb);
                         setState(() {
                           _loadingButton = false;
                         });
@@ -112,7 +112,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                           final sb = SnackBar(
                             content: Text('Logged In Successfully'),
                           );
-                          Scaffold.of(context).showSnackBar(sb);
+                          ScaffoldMessenger.of(context).showSnackBar(sb);
                           pref.setString('private_key', privateKey.toString());
                           pref.setString('public_key', publicKey.toString());
                           Navigator.pushReplacementNamed(
@@ -124,7 +124,7 @@ class _PasswordLoginPageState extends State<PasswordLoginPage> {
                           final sb = SnackBar(
                             content: Text('Password Incorrect.(try again)'),
                           );
-                          Scaffold.of(context).showSnackBar(sb);
+                          ScaffoldMessenger.of(context).showSnackBar(sb);
                         }
                       }
                     }

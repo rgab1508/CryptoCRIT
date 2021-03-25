@@ -63,13 +63,13 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
           style: TextStyle(color: Colors.white),
         ),
         actions: [
-          FlatButton(
+          TextButton(
             child: Text("Copy"),
             onPressed: () {
               Clipboard.setData(new ClipboardData(text: mnemonics));
             },
           ),
-          FlatButton(
+          TextButton(
             child: Text("Okay"),
             onPressed: () {
               Navigator.pop(context, true);
@@ -103,11 +103,11 @@ class _CreateWalletPageState extends State<CreateWalletPage> {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            if (Platform.isAndroid) {
+            if (Platform.isAndroid || Platform.isWindows) {
               return Expanded(
                 child: dialogAndroid,
               );
-            } else if (Platform.isIOS) {
+            } else if (Platform.isIOS || Platform.isMacOS) {
               return Expanded(child: dialogIos);
             }
           });
