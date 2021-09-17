@@ -19,12 +19,13 @@ This system will be used in [Fr. Conceicao Rodrigues Institute of Technology](ht
 <tbody>
 <tr><th scope='row'>Name</th><td>CryptoCRIT</td></tr>
 <tr><th scope='row'>Technologies Used</th><td><ul><li>Blockchain</li><li>ECC</li></ul></td></tr>
+<tr><th scope='row'>Stack</th><td><ul><li>JavaScript (Backend)</li><li>Flutter (Frontend)</li></td></tr>
 <tr><th scope='row'>College</th><td><a href="https://www.fcrit.ac.in">Fr. Conceicao Rodrigues Institute of Technology</a></td></tr>
 </tbody>
 </table>
 
 ## Installation
- Currently this application is availabe only for Android users ( iOS is too expensive!!). The apk file will be out soon. Maybe we will implement it on iOS someday.
+ Currently this application is availabe only for Android users ( iOS is too expensive!!). APK file is available Releases section of this page. iOS version is not available, but we plan on releasing it later.
  
 ## Wallet setup procedure
 <ol>
