@@ -30,7 +30,7 @@
     "elliptic": "^6.5.3",
     "eosjs-ecc": "^4.0.7",
     "express": "^4.17.1",
-    "firebase-admin": "^9.4.2",
+    "firebase-admin": "^11.4.1",
     "nodemailer": "^6.4.17"
   }
 }
